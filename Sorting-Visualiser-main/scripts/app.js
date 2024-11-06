@@ -1,5 +1,67 @@
 "use strict";
+let sortingInProgress = false; // Track sorting state
+let algorithm; // To allow stopping the algorithm
+async function toggleChat() {
+  const chatButton = document.getElementById("chatButton");
+  const userInput = document.getElementById('chatInput').value;
+  if(userInput == "") return;
+  if (sortingInProgress) {
+    // If sorting is in progress, stop it
+    stopSorting();
+    chatButton.innerText = "Send";
+  } else {
+    // Process new chat input
+    await processChat();
+    chatButton.innerText = "Stop";
+  }
+}
+
+
+async function processChat() {
+  const userInput = document.getElementById('chatInput').value;
+  if(userInput == "") return;
+  // Call the AI model API here
+  const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer <groq-api-key>'
+    },
+    body: JSON.stringify({
+      model:"llama3-groq-70b-8192-tool-use-preview",
+      messages: [{
+        role: "user",
+        content: `Analyze this prompt for a sorting visualizer: "${userInput}". Return JSON format: { algoValue: 1-5, arraySize: number}. You only JSON reponse strictly. No explaination. Return only JSON format like { algoValue: 1-5, arraySize: number}`,
+      }],
+      response_format: { type: "json_object" }
+    })
+  });
+
+  const data = await response.json();
+  const result = JSON.parse(data.choices[0].message.content);
+
+  // Set algoValue and array size based on the response
+  document.querySelector(".algo-menu").value = result.algoValue;
+  document.querySelector(".size-menu").value = result.arraySize;
+
+  // Render the updated visualizer
+  await RenderScreen();
+  start()
+}
+
+// Function to stop sorting and reset the visualizer
+const stopSorting = async () => {
+  if (sortingInProgress) {
+    // Assuming sortAlgorithms class has a method to halt execution
+    algorithm.stop(); // Custom stop method within sortAlgorithms
+    sortingInProgress = false;
+    await clearScreen();
+  }
+};
+
+
 const start = async () => {
+  sortingInProgress = true;
   document.querySelector(".footer > p:nth-child(1)").style.visibility = "hidden";
   let now = new Date();
   let algoValue = Number(document.querySelector(".algo-menu").value);
@@ -13,7 +75,7 @@ const start = async () => {
     return;
   }
 
-  let algorithm = new sortAlgorithms(speedValue);
+  algorithm = new sortAlgorithms(speedValue);
   if (algoValue === 1) await algorithm.BubbleSort();
   if (algoValue === 2) await algorithm.SelectionSort();
   if (algoValue === 3) await algorithm.InsertionSort();
@@ -21,6 +83,8 @@ const start = async () => {
   if (algoValue === 5) await algorithm.QuickSort();
   let now1 = new Date();
   document.getElementById('Ttime').innerHTML = (now1 - now) / 1000;
+  sortingInProgress = false;
+  document.getElementById("chatButton").innerText = "Send";
   // document.querySelector(".footer > p:nth-child(2)").style.visibility = "visible";
 };
 var i=0;
@@ -45,7 +109,7 @@ const RenderList = async () => {
   // i++;
   await clearScreen();
   //await RenderInput();
-  
+
 
   let list = await randomList(sizeValue);
   const arrayNode = document.querySelector(".array");
@@ -84,7 +148,7 @@ const randomList = async (Length) => {
   let list = new Array();
   let lowerBound = 1;
   let upperBound = 100;
-  
+
 
   if (input == "Y") {
     for (let counter = 0; counter < Length; ++counter) {
@@ -108,7 +172,7 @@ const randomList = async (Length) => {
   //   list.push(parseInt(randomNumber));
   // }
 
-  
+
   return list;
 };
 
