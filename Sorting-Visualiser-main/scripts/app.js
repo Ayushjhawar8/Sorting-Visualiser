@@ -1,7 +1,25 @@
 "use strict";
 let sortingInProgress = false; // Track sorting state
 let algorithm; // To allow stopping the algorithm
-async function toggleChat() {
+
+
+function toggleChat() {
+  const chatContainer = document.getElementById("chatContainer");
+  if (chatContainer.classList.contains("show")) {
+    chatContainer.classList.remove("show");
+    chatContainer.classList.add("hide");
+    setTimeout(() => {
+      chatContainer.style.display = "none";
+    }, 300); // Match the CSS transition duration
+  } else {
+    chatContainer.style.display = "flex";
+    chatContainer.classList.remove("hide");
+    chatContainer.classList.add("show");
+  }
+}
+
+async function sendChat() {
+
   const chatButton = document.getElementById("chatButton");
   const userInput = document.getElementById('chatInput').value;
   if(userInput == "") return;
@@ -31,7 +49,15 @@ async function processChat() {
       model:"llama3-groq-70b-8192-tool-use-preview",
       messages: [{
         role: "user",
-        content: `Analyze this prompt for a sorting visualizer: "${userInput}". Return JSON format: { algoValue: 1-5, arraySize: number}. You only JSON reponse strictly. No explaination. Return only JSON format like { algoValue: 1-5, arraySize: number}`,
+        content: `Analyze this prompt for a sorting visualizer: "${userInput}". Return JSON format: { algoValue: 1-5, arraySize: number}.
+        # algoValues:
+        1 - BubbleSort
+        2 - SelectionSort
+        3 - InsertionSort
+        4 - MergeSort
+        5 - QuickSort
+
+        `,
       }],
       response_format: { type: "json_object" }
     })
