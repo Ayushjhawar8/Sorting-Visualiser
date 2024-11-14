@@ -113,7 +113,43 @@ class sortAlgorithms {
 
     Merge = async (start, mid, end) => {
         if (this.stopped) return;
-        // ... (rest of the Merge method code remains unchanged)
+        let newList = new Array();
+        let frontcounter = start;
+        let midcounter = mid + 1;
+
+        while (frontcounter <= mid && midcounter <= end) {
+            let fvalue = Number(this.list[frontcounter].getAttribute("value"));
+            let svalue = Number(this.list[midcounter].getAttribute("value"));
+            if (fvalue >= svalue) {
+                newList.push(svalue);
+                ++midcounter;
+            }
+            else {
+                newList.push(fvalue);
+                ++frontcounter;
+            }
+        }
+        while (frontcounter <= mid) {
+            newList.push(Number(this.list[frontcounter].getAttribute("value")));
+            ++frontcounter;
+        }
+        while (midcounter <= end) {
+            newList.push(Number(this.list[midcounter].getAttribute("value")));
+            ++midcounter;
+        }
+
+        for (let c = start; c <= end; ++c) {
+            this.list[c].setAttribute("class", "cell current");
+        }
+        for (let c = start, point = 0; c <= end && point < newList.length;
+            ++c, ++point) {
+            await this.help.pause();
+            this.list[c].setAttribute("value", newList[point]);
+            this.list[c].style.height = `${3.5 * newList[point]}px`;
+        }
+        for (let c = start; c <= end; ++c) {
+            this.list[c].setAttribute("class", "cell");
+        }
     }
 
     // QUICK SORT
