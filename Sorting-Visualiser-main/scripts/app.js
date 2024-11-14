@@ -31,7 +31,15 @@ async function processChat() {
       model:"llama3-groq-70b-8192-tool-use-preview",
       messages: [{
         role: "user",
-        content: `Analyze this prompt for a sorting visualizer: "${userInput}". Return JSON format: { algoValue: 1-5, arraySize: number}. You only JSON reponse strictly. No explaination. Return only JSON format like { algoValue: 1-5, arraySize: number}`,
+        content: `Analyze this prompt for a sorting visualizer: "${userInput}". Return JSON format: { algoValue: 1-5, arraySize: number}.
+        # algoValues:
+        1 - BubbleSort
+        2 - SelectionSort
+        3 - InsertionSort
+        4 - MergeSort
+        5 - QuickSort
+
+        `,
       }],
       response_format: { type: "json_object" }
     })
