@@ -1,7 +1,25 @@
 "use strict";
 let sortingInProgress = false; // Track sorting state
 let algorithm; // To allow stopping the algorithm
-async function toggleChat() {
+
+
+function toggleChat() {
+  const chatContainer = document.getElementById("chatContainer");
+  if (chatContainer.classList.contains("show")) {
+    chatContainer.classList.remove("show");
+    chatContainer.classList.add("hide");
+    setTimeout(() => {
+      chatContainer.style.display = "none";
+    }, 300); // Match the CSS transition duration
+  } else {
+    chatContainer.style.display = "flex";
+    chatContainer.classList.remove("hide");
+    chatContainer.classList.add("show");
+  }
+}
+
+async function sendChat() {
+
   const chatButton = document.getElementById("chatButton");
   const userInput = document.getElementById('chatInput').value;
   if(userInput == "") return;
