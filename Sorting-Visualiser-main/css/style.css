@@ -80,7 +80,7 @@ body {
   margin: 0 auto;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px; /* Added shadow to make page border free */
   height: 420px;
-  width: 410px;
+  width: 95%;
   max-height: 731px;
 }
 .array {
@@ -177,11 +177,6 @@ footer {
   }
   a.start {
     order: 5;
-  }
-}
-@media screen and (max-width: 550px) {
-  .center {
-    width: 95%;
   }
 }
 
