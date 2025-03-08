@@ -283,3 +283,59 @@ footer {
 #chatButton:hover {
   background-color: #2563eb;
 }
+
+/* Light Mode (Default) */
+#body {
+  background-color: white;
+  color: black;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dark-mode {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Dark Mode */
+#body.dark-mode {
+  background-color: #121212;
+  color: white;
+}
+
+.dark-mode .options select,
+.dark-mode .chat-container {
+  background-color: #333;
+  color: white;
+}
+
+.dark-mode .chat-container {
+  border: 1px solid #444;
+}
+
+/* Footer styles */
+.dark-mode footer {
+  background-color: #222;
+  color: white;
+}
+
+/* Customize button style */
+#theme-toggle {
+  background-color: #5c6bc0;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100px;
+  height: 40px;
+  display: block; /* Make the button a block element */
+    width: 200px;   /* Set a fixed width for the button */
+    margin: 0 auto; /
+}
+
+#theme-toggle:hover {
+  background-color: #3f51b5;
+}
+
+#theme-toggle.dark-mode {
+  background-color: #333;
+  color: white;
+}
