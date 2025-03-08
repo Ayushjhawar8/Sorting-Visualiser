@@ -2,6 +2,8 @@
 let sortingInProgress = false; // Track sorting state
 let algorithm; // To allow stopping the algorithm
 
+let speedMultiplier = 1; // Default speed multiplier
+let arraySize = 0; // Default array size
 
 function toggleChat() {
   const chatContainer = document.getElementById("chatContainer");
@@ -22,7 +24,7 @@ async function sendChat() {
 
   const chatButton = document.getElementById("chatButton");
   const userInput = document.getElementById('chatInput').value;
-  if(userInput == "") return;
+  if (userInput == "") return;
   if (sortingInProgress) {
     // If sorting is in progress, stop it
     stopSorting();
@@ -37,7 +39,7 @@ async function sendChat() {
 
 async function processChat() {
   const userInput = document.getElementById('chatInput').value;
-  if(userInput == "") return;
+  if (userInput == "") return;
   // Call the AI model API here
   const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
     method: 'POST',
@@ -46,7 +48,7 @@ async function processChat() {
       'Authorization': 'Bearer <groq-api-key>'
     },
     body: JSON.stringify({
-      model:"llama3-groq-70b-8192-tool-use-preview",
+      model: "llama3-groq-70b-8192-tool-use-preview",
       messages: [{
         role: "user",
         content: `Analyze this prompt for a sorting visualizer: "${userInput}". Return JSON format: { algoValue: 1-5, arraySize: number}.
@@ -85,23 +87,88 @@ const stopSorting = async () => {
   }
 };
 
+const setCustomArraySizeValue = async (text, value) => {
+  let customOption = document.getElementById("size-custom");
+  customOption.textContent = text;
+  customOption.value = value;
+}
+
+const selectCustomArraySize = async () => {
+  let sizeValueStr = prompt("Enter custom array size:");
+  try {
+    let sizeValue = parseInt(sizeValueStr);
+    if (sizeValue > 0) {
+      arraySize = sizeValue;
+      setCustomArraySizeValue(`Custom (${sizeValue})`, sizeValue);
+    } else {
+      alert("Invalid array size. Please enter a positive number.");
+      arraySize = 10;
+    }
+  } catch (error) {
+    alert("Invalid array size. Please enter a positive number.");
+    arraySize = 10;
+  }
+}
+
+const changeArraySize = async () => {
+  let sizeValue = Number(document.querySelector(".size-menu").value);
+  if (sizeValue == -1) {
+    await selectCustomArraySize();
+    return;
+  }
+  setCustomArraySizeValue("Custom", -1);
+  arraySize = sizeValue;
+};
+
+
+const setCustomSpeedMultiplierValue = async (text, value) => {
+  let customOption = document.getElementById("speed-custom");
+  customOption.textContent = text;
+  customOption.value = value;
+};
+
+const selectCustomSpeedMultiplier = async () => {
+  let speedValueStr = prompt("Enter custom speed multiplier:");
+  try {
+    let speedValue = parseFloat(speedValueStr);
+    if (speedValue > 0) {
+      speedMultiplier = speedValue;
+      setCustomSpeedMultiplierValue(`Custom (${speedValue}x)`, speedValue);
+    } else {
+      alert("Invalid speed multiplier. Please enter a positive number.");
+      speedMultiplier = 1;
+    }
+  } catch (error) {
+    alert("Invalid speed multiplier. Please enter a positive number.");
+    speedMultiplier = 1;
+  }
+}
+
+const changeSpeed = async () => {
+  let speedValue = Number(document.querySelector(".speed-menu").value);
+  if (speedValue == -1) {
+    await selectCustomSpeedMultiplier();
+    return;
+  }
+  setCustomSpeedMultiplierValue("Custom", -1);
+  if (speedValue <= 0) {
+    speedValue = 1;
+  }
+  speedMultiplier = speedValue;
+};
 
 const start = async () => {
   sortingInProgress = true;
   document.querySelector(".footer > p:nth-child(1)").style.visibility = "hidden";
   let now = new Date();
   let algoValue = Number(document.querySelector(".algo-menu").value);
-  let speedValue = Number(document.querySelector(".speed-menu").value);
 
-  if (speedValue === 0) {
-    speedValue = 1;
-  }
   if (algoValue === 0) {
     alert("No Algorithm Selected");
     return;
   }
 
-  algorithm = new sortAlgorithms(speedValue);
+  algorithm = new sortAlgorithms(speedMultiplier);
   if (algoValue === 1) await algorithm.BubbleSort();
   if (algoValue === 2) await algorithm.SelectionSort();
   if (algoValue === 3) await algorithm.InsertionSort();
@@ -113,13 +180,8 @@ const start = async () => {
   document.getElementById("chatButton").innerText = "Send";
   // document.querySelector(".footer > p:nth-child(2)").style.visibility = "visible";
 };
-var i=0;
+var i = 0;
 let input;
-
-const RenderScreen = async () => {
-  let algoValue = Number(document.querySelector(".algo-menu").value);
-  await RenderList();
-};
 
 const RenderInput = async () => {
   input = String(document.querySelector(".input").value);
@@ -128,7 +190,6 @@ const RenderInput = async () => {
 };
 
 const RenderList = async () => {
-  let sizeValue = Number(document.querySelector(".size-menu").value);
   // if(i>0){
   //   input = prompt("Do you want to manually input the array? Answer - Y/N");
   // }
@@ -137,7 +198,7 @@ const RenderList = async () => {
   //await RenderInput();
 
 
-  let list = await randomList(sizeValue);
+  let list = await randomList(arraySize);
   const arrayNode = document.querySelector(".array");
   console.log(arrayNode);
   console.log(list);
@@ -151,10 +212,9 @@ const RenderList = async () => {
 };
 
 const RenderArray = async (sorted) => {
-  let sizeValue = Number(document.querySelector(".size-menu").value);
   await clearScreen();
 
-  let list = await randomList(sizeValue);
+  let list = await randomList(arraySize);
   if (sorted) list.sort((a, b) => a - b);
 
   const arrayNode = document.querySelector(".array");
@@ -182,7 +242,7 @@ const randomList = async (Length) => {
       list.push(parseInt(randomNumber));
     }
   }
-  else{
+  else {
     for (let counter = 0; counter < Length; ++counter) {
       let randomNumber = Math.floor(
         Math.random() * (upperBound - lowerBound + 1) + lowerBound
@@ -218,6 +278,5 @@ const response = () => {
 document.querySelector(".icon").addEventListener("click", response);
 document.querySelector(".start").addEventListener("click", start);
 document.querySelector(".size-menu").addEventListener("change", RenderList);
-document.querySelector(".algo-menu").addEventListener("change", RenderScreen);
 document.querySelector(".input").addEventListener("change", RenderInput);
-window.onload = RenderScreen;
+window.onload = RenderList;
