@@ -2,7 +2,7 @@
 
 ## Live Link
 
-<https://aj-visualize-sort.netlify.app/>
+<https://aj-sort.netlify.app//>
 
 ## About
 
