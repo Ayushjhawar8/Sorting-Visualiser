@@ -1,6 +1,6 @@
 :root {
-  --primary-color: #1abc9c;
-  --secondary-color: #16a085;
+  --primary-color: #08c0d1;
+  --secondary-color: #14b4c6;
 }
 * {
   /* Below is the standard CSS code one should add to get rid of default margins and padding which most of tge HTML elements have */
@@ -51,28 +51,43 @@ body {
   padding: 8px 10px;
   border-radius: 6px;
   transition: 0.3s;
-  background-color: #1abc9c;
+  background-color: #0bc5ce;
 }
 .navbar a:hover {
-  background-color: transparent;
-}
+  background-color: rgb(10, 218, 241);
+  color: #2d2d2d;
+  font-weight: 500;
+  font-size: medium;
+  text-decoration: 2x  rgb(89, 89, 217) underline;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .navbar a.active {
+    background-color: #0aa7ce;
+    color: #fff;
+  }
+
 .navbar #menu {
   width: fit-content;
   outline: none;
   border: none;
   border-radius: 4px;
   padding: 6px 8px;
-  background-color: #1abc9c;
+  background-color: #0aa7ce;
   color: white;
 }
 .navbar > .icon {
   display: none;
+}
+.navbar .icon {
+  display: block; /* Show icon on mobile */
 }
 #menu,
 #random,
 #start {
   cursor: pointer;
 }
+
 
 /* Center css */
 .center {
@@ -216,6 +231,10 @@ footer {
   transform: translateY(20px); /* Slide from 20px below */
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
+.chat-container, .cell {
+  border-radius: 10px;
+}
+
 
 .chat-container.show {
   display: flex;             /* Display flex when active */
@@ -277,10 +296,13 @@ footer {
   padding: 8px 12px;
   font-size: 14px;
   cursor: pointer;
+  background: linear-gradient(45deg, #3b82f6, #2563eb);
+  transition: 0.3s;
 }
 
 #chatButton:hover {
   background-color: #2563eb;
+  background: linear-gradient(45deg, #2563eb, #3b82f6);
 }
 
 /* Light Mode (Default) */
