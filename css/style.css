@@ -20,6 +20,10 @@ body {
   align-items: stretch;
 }
 
+body.normal-mode {
+  background-color: #FFFFFF;
+  color: #333333;
+}
 /* Title CSS */
 .title {
   background-color: var(--primary-color);
@@ -51,10 +55,10 @@ body {
   padding: 8px 10px;
   border-radius: 6px;
   transition: 0.3s;
-  background-color: #0bc5ce;
+  background-color: #007BFF;
 }
 .navbar a:hover {
-  background-color: rgb(10, 218, 241);
+  background-color: rgb(39, 92, 198);
   color: #2d2d2d;
   font-weight: 500;
   font-size: medium;
@@ -63,7 +67,7 @@ body {
   }
 
   .navbar a.active {
-    background-color: #0aa7ce;
+    background-color: #0056b3;
     color: #fff;
   }
 
@@ -73,8 +77,12 @@ body {
   border: none;
   border-radius: 4px;
   padding: 6px 8px;
-  background-color: #0aa7ce;
-  color: white;
+  background-color: gray;
+  color: #343A40;
+}
+nav-container, .footer {
+  background-color: #1E1E1E;
+  color: #E0E0E0;
 }
 .navbar > .icon {
   display: none;
@@ -194,6 +202,49 @@ footer {
   }
 }
 
+button {
+  background-color: #67abf5; /* Blue */
+  color: #FFFFFF; /* White */
+  border: 1px solid #1762b1; /* Blue */
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.button:hover {
+  background-color: #0056b3; /* Darker Blue */
+}
+
+.button:active {
+  background-color: #004085; /* Even Darker Blue */
+}
+
+/* Dark Mode Styles */
+body.dark-mode .nav-container {
+  background-color: #343A40; /* Dark Gray */
+  color: #FFFFFF; /* White */
+}
+
+body.dark-mode .nav-container a {
+  color: #66B2FF; /* Light Blue */
+}
+
+body.dark-mode .nav-container a:hover {
+  color: #99CCFF; /* Lighter Blue */
+}
+
+body.dark-mode .button {
+  background-color: #1E1E1E; /* Very Dark Gray */
+  color: #FFFFFF; /* White */
+  border: 1px solid #66B2FF; /* Light Blue */
+}
+
+body.dark-mode .button:hover {
+  background-color: #2A2A2A; /* Slightly Lighter Dark Gray */
+}
+
+body.dark-mode .button:active {
+  background-color: #3A3A3A; /* Even Lighter Dark Gray */
+}
 /* Chat Popup Toggle Button */
 .chat-toggle-button {
   position: fixed;
@@ -319,8 +370,9 @@ footer {
 /* Dark Mode */
 #body.dark-mode {
   background-color: #121212;
-  color: white;
-}
+    color: #E0E0E0;
+  }
+
 
 .dark-mode .navbar {
   background-color: #0d796d;
@@ -367,7 +419,7 @@ footer {
   padding: 8px !important;
   font-size: 16px !important;
   transition: transform 0.3s ease;
-  background-color: #1abc9c !important;
+  background-color: #0bdcef !important;
   border-radius: 50% !important;
   position: absolute;
   right: 20px;

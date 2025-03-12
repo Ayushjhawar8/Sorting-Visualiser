@@ -2,6 +2,10 @@
 const themeToggleButton = document.getElementById('theme-toggle');
 const themeIcon = themeToggleButton.querySelector('i');
 
+document.getElementById('theme-toggle').addEventListener('click', function() {
+  const body = document.getElementById('body');
+  body.classList.toggle('dark-mode');
+});
 // Check if dark mode is enabled in localStorage, and apply it if true
 const currentTheme = localStorage.getItem('theme') || 'light';
 
