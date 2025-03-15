@@ -26,7 +26,7 @@ If you find a bug or have a feature request, please create an issue on the [GitH
 1. **Fork the repository**: Click the "Fork" button at the top right corner of the repository page.
 2. **Clone your fork**: 
     ```sh
-    git clone https://github.com/your-username/your-repo.git
+    git clone https://github.com/Ayushjhawar8/Sorting-Visualiser.git
     cd your-repo
     ```
 3. **Create a new branch**: 
@@ -62,12 +62,12 @@ To get started with the project, follow these steps:
 
 1. **Clone the repository**:
     ```sh
-    git clone https://github.com/your-repo/your-repo.git
+    git clone https://github.com/your-username/Sorting-Visualiser.git
     cd your-repo
     ```
 2. **Open the project in your preferred code editor**.
 3. **Run the project**: Open `index.html` in your web browser.
-4. **Run tests**: Open `tests.html` in your web browser to run the tests.
+4. **Start**: Start live server
 
 ## Community
 
