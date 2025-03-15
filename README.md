@@ -56,10 +56,10 @@ This project has been a part of:
 ## 📸 Screenshots
 
 ### 🏠 Home Page
-![Home Page](path/to/homepage.png)
+![Home Page](/img1.png)
 
 ### 🔄 Sorting Visualization
-![Sorting Visualization](path/to/sorting-visualization.png)
+![Sorting Visualization](/img2.png)
 
 _(Add your actual screenshots in place of the placeholders)_
 
