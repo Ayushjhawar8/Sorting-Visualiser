@@ -18,6 +18,10 @@ body {
   justify-content: space-between;
   flex-direction: column;
   align-items: stretch;
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
 }
 
 body.normal-mode {
@@ -46,6 +50,10 @@ body.normal-mode {
   padding-block: 0.6em;
   background-color: var(--secondary-color);
   transition: all 0.5s cubic-bezier(0.645, 0.045, 0.355, 1);
+  background-color: #333;
+  color: white;
+  justify-content: center;
+  align-items: center;
 }
 .navbar a {
   all: unset;
@@ -56,9 +64,13 @@ body.normal-mode {
   border-radius: 6px;
   transition: 0.3s;
   background-color: #007BFF;
-}
+  padding: 10px 15px;
+  text-decoration: none;
+  transition: background 0.3s;
+  
+  }
 .navbar a:hover {
-  background-color: rgb(39, 92, 198);
+  background-color: #575757;;
   color: #2d2d2d;
   font-weight: 500;
   font-size: medium;
@@ -356,6 +368,34 @@ body.dark-mode .button:active {
   background: linear-gradient(45deg, #2563eb, #3b82f6);
 }
 
+.dropdown {
+  position: relative;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+
 /* Light Mode (Default) */
 #body {
   background-color: white;
@@ -448,6 +488,37 @@ body.dark-mode .button:active {
   display: block; /* Make the button a block element */
   width: 200px;   /* Set a fixed width for the button */
   margin: 0 auto; /
+}
+.cta-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.cta-button:hover {
+  background-color: #45a049;
+}
+
+.hero {
+  background: url('hero-image.jpg') no-repeat center center/cover;
+  color: white;
+  text-align: center;
+  padding: 100px 20px;
+}
+
+.testimonials, .featured-services, .blog {
+  padding: 20px;
+  background-color: white;
+  margin: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.testimonial {
+  margin: 10
 }
 
 #theme-toggle:hover {

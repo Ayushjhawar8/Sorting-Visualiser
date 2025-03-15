@@ -19,6 +19,9 @@
     <h2 class="title" onclick="window.location.reload()">
       Sorting visualizer
     </h2>
+    
+
+  
     <a id="theme-toggle" class="theme-btn"><i class="fa fa-moon-o"></i></a>
     <div class="navbar" id="navbar">
       <a id="random" onclick="RenderScreen()">Generate array</a>
@@ -50,6 +53,8 @@
           <option value="-1" id="size-custom">Custom</option>
         </select>
       </span>
+
+    
       <!-- <input type="text" placeholder="Input Array..." id="menu1">  -->
       <span class="options">
         <select name="input" id="menu" class="input">
@@ -77,7 +82,7 @@
     <div class="array"></div>
   </div>
 
-  <!-- Chat Popup Button and Container -->
+  
   <button class="chat-toggle-button" onclick="toggleChat()">💬</button>
 
   <div class="chat-container" id="chatContainer">
@@ -90,9 +95,26 @@
       <button id="chatButton" onclick="sendChat()">Send</button>
     </div>
   </div>
-
+  
+  <section class="featured-services">
+    <h2>Our Services</h2>
+    <div class="service">
+      <h3>Consulting</h3>
+      <p>Expert advice to help you succeed.</p>
+    </div>
+    <div class="service">
+      <h3>Support</h3>
+      <p>24/7 support for all your needs.</p>
+    </div>
+    <div class="service">
+      <h3>Training</h3>
+      <p>Learn from the best in the industry.</p>
+    </div>
+  </section>
+  
   <footer class="footer">
     <p>Time Complexity = <span id="time"></span> and Total Time Taken = <span id="Ttime"></span> seconds</p>
+    
   </footer>
   <script src="./scripts/app.js"></script>
   <script src="./scripts/helper.js"></script>
