@@ -339,3 +339,51 @@ footer {
   background-color: #333;
   color: white;
 }
+
+/* Default Light Mode Bar Colors */
+.cell {
+  background-color: #bbb5b5; /* Default gray */
+  transition: background-color 0.4s ease-in;
+}
+
+/* Dark Mode - Adjusted Bar Colors */
+.dark-mode .cell {
+  background-color: #444 !important; /* Dark gray for better contrast */
+  border: 1px solid #666; /* Subtle border to improve visibility */
+}
+
+/* Sorting Animation */
+@keyframes sortingAnimation {
+  from {
+    background-color: inherit; /* Uses the correct color from the current mode */
+  }
+  to {
+    background-color: #6184d8; /* Default sorting color */
+  }
+}
+
+/* Color Adjustments for Dark Mode */
+.dark-mode .cell.visited {
+  background-color: #1e90ff !important; /* Bright blue for better visibility */
+  border-color: #1e90ff;
+}
+
+.dark-mode .cell.current {
+  background-color: #ffcc00 !important; /* Bright yellow */
+  border-color: #ffcc00;
+}
+
+.dark-mode .cell.done {
+  background-color: #32cd32 !important; /* Brighter green */
+  border-color: #32cd32;
+}
+
+.dark-mode .cell.min {
+  background-color: #ff4500 !important; /* Bright orange */
+  border-color: #ff4500;
+}
+
+/* Add subtle glow effect in dark mode */
+.dark-mode .cell {
+  box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.1);
+}
