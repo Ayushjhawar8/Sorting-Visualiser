@@ -21,9 +21,8 @@ function toggleChat() {
 }
 
 async function sendChat() {
-
   const chatButton = document.getElementById("chatButton");
-  const userInput = document.getElementById('chatInput').value;
+  const userInput = document.getElementById("chatInput").value;
   if (userInput == "") return;
   if (sortingInProgress) {
     // If sorting is in progress, stop it
@@ -36,22 +35,24 @@ async function sendChat() {
   }
 }
 
-
 async function processChat() {
-  const userInput = document.getElementById('chatInput').value;
+  const userInput = document.getElementById("chatInput").value;
   if (userInput == "") return;
   // Call the AI model API here
-  const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer <groq-api-key>'
-    },
-    body: JSON.stringify({
-      model: "llama3-groq-70b-8192-tool-use-preview",
-      messages: [{
-        role: "user",
-        content: `Analyze this prompt for a sorting visualizer: "${userInput}". Return JSON format: { algoValue: 1-5, arraySize: number}.
+  const response = await fetch(
+    "https://api.groq.com/openai/v1/chat/completions",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer <groq-api-key>",
+      },
+      body: JSON.stringify({
+        model: "llama3-groq-70b-8192-tool-use-preview",
+        messages: [
+          {
+            role: "user",
+            content: `Analyze this prompt for a sorting visualizer: "${userInput}". Return JSON format: { algoValue: 1-5, arraySize: number}.
         # algoValues:
         1 - BubbleSort
         2 - SelectionSort
@@ -60,10 +61,12 @@ async function processChat() {
         5 - QuickSort
 
         `,
-      }],
-      response_format: { type: "json_object" }
-    })
-  });
+          },
+        ],
+        response_format: { type: "json_object" },
+      }),
+    }
+  );
 
   const data = await response.json();
   const result = JSON.parse(data.choices[0].message.content);
@@ -73,8 +76,8 @@ async function processChat() {
   document.querySelector(".size-menu").value = result.arraySize;
 
   // Render the updated visualizer
-  await RenderScreen();
-  start()
+  // await RenderScreen();
+  start();
 }
 
 // Function to stop sorting and reset the visualizer
@@ -91,7 +94,7 @@ const setCustomArraySizeValue = async (text, value) => {
   let customOption = document.getElementById("size-custom");
   customOption.textContent = text;
   customOption.value = value;
-}
+};
 
 const selectCustomArraySize = async () => {
   let sizeValueStr = prompt("Enter custom array size:");
@@ -108,7 +111,7 @@ const selectCustomArraySize = async () => {
     alert("Invalid array size. Please enter a positive number.");
     arraySize = 10;
   }
-}
+};
 
 const changeArraySize = async () => {
   let sizeValue = Number(document.querySelector(".size-menu").value);
@@ -119,7 +122,6 @@ const changeArraySize = async () => {
   setCustomArraySizeValue("Custom", -1);
   arraySize = sizeValue;
 };
-
 
 const setCustomSpeedMultiplierValue = async (text, value) => {
   let customOption = document.getElementById("speed-custom");
@@ -142,7 +144,7 @@ const selectCustomSpeedMultiplier = async () => {
     alert("Invalid speed multiplier. Please enter a positive number.");
     speedMultiplier = 1;
   }
-}
+};
 
 const changeSpeed = async () => {
   let speedValue = Number(document.querySelector(".speed-menu").value);
@@ -159,7 +161,8 @@ const changeSpeed = async () => {
 
 const start = async () => {
   sortingInProgress = true;
-  document.querySelector(".footer > p:nth-child(1)").style.visibility = "hidden";
+  document.querySelector(".footer > p:nth-child(1)").style.visibility =
+    "hidden";
   let now = new Date();
   let algoValue = Number(document.querySelector(".algo-menu").value);
 
@@ -175,7 +178,7 @@ const start = async () => {
   if (algoValue === 4) await algorithm.MergeSort();
   if (algoValue === 5) await algorithm.QuickSort();
   let now1 = new Date();
-  document.getElementById('Ttime').innerHTML = (now1 - now) / 1000;
+  document.getElementById("Ttime").innerHTML = (now1 - now) / 1000;
   sortingInProgress = false;
   document.getElementById("chatButton").innerText = "Send";
   // document.querySelector(".footer > p:nth-child(2)").style.visibility = "visible";
@@ -196,7 +199,6 @@ const RenderList = async () => {
   // i++;
   await clearScreen();
   //await RenderInput();
-
 
   let list = await randomList(arraySize);
   const arrayNode = document.querySelector(".array");
@@ -235,14 +237,12 @@ const randomList = async (Length) => {
   let lowerBound = 1;
   let upperBound = 100;
 
-
   if (input == "Y") {
     for (let counter = 0; counter < Length; ++counter) {
       let randomNumber = prompt("Enter the no.");
       list.push(parseInt(randomNumber));
     }
-  }
-  else {
+  } else {
     for (let counter = 0; counter < Length; ++counter) {
       let randomNumber = Math.floor(
         Math.random() * (upperBound - lowerBound + 1) + lowerBound
@@ -258,9 +258,30 @@ const randomList = async (Length) => {
   //   list.push(parseInt(randomNumber));
   // }
 
-
   return list;
 };
+
+const generate = async () => {
+  const n = Math.floor(Math.random() * 100);
+  const list = Array.from({ length: n }, () => Math.floor(Math.random() * 100)); // Initialize array with random numbers
+  const arrayNode = document.querySelector(".array");
+
+  if (!arrayNode) {
+    console.error("Element with class 'array' not found");
+    return;
+  }
+
+  arrayNode.innerHTML = ""; // Clear previous elements before appending new ones
+
+  for (const element of list) {
+    const node = document.createElement("div");
+    node.className = "cell";
+    node.setAttribute("value", String(element));
+    node.style.height = `${3.8 * element}px`;
+    arrayNode.appendChild(node);
+  }
+};
+
 
 const clearScreen = async () => {
   document.querySelector(".array").innerHTML = "";
@@ -274,7 +295,7 @@ const response = () => {
     Navbar.className = "navbar";
   }
 };
-
+document.querySelector("#random").addEventListener("click", generate);
 document.querySelector(".icon").addEventListener("click", response);
 document.querySelector(".start").addEventListener("click", start);
 document.querySelector(".size-menu").addEventListener("change", RenderList);
