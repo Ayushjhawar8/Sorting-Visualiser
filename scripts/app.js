@@ -251,19 +251,13 @@ const randomList = async (Length) => {
     }
   }
 
-  // for (let counter = 0; counter < Length; ++counter) {
-  //   let randomNumber = Math.floor(
-  //     Math.random() * (upperBound - lowerBound + 1) + lowerBound
-  //   );
-  //   list.push(parseInt(randomNumber));
-  // }
 
   return list;
 };
 
 const generate = async () => {
   const n = Math.floor(Math.random() * 100);
-  const list = Array.from({ length: n }, () => Math.floor(Math.random() * 100)); // Initialize array with random numbers
+  const list = Array.from({ length: n }, () => Math.floor(Math.random()  * (50 - 5 + 1)) + 5); // Initialize array with random numbers
   const arrayNode = document.querySelector(".array");
 
   if (!arrayNode) {
@@ -278,6 +272,14 @@ const generate = async () => {
     node.className = "cell";
     node.setAttribute("value", String(element));
     node.style.height = `${3.8 * element}px`;
+  
+    // Create a span element to display the value
+    const span = document.createElement("span");
+    span.innerText = element;
+    span.className = "cell-value"; // For styling
+  
+    // Append the span inside the node
+    node.appendChild(span);
     arrayNode.appendChild(node);
   }
 };
