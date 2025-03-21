@@ -39,20 +39,21 @@ async function processChat() {
   const userInput = document.getElementById("chatInput").value;
   if (userInput == "") return;
   // Call the AI model API here
-  const response = await fetch(
-    "https://api.groq.com/openai/v1/chat/completions",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer <groq-api-key>",
-      },
-      body: JSON.stringify({
-        model: "llama3-groq-70b-8192-tool-use-preview",
-        messages: [
-          {
-            role: "user",
-            content: `Analyze this prompt for a sorting visualizer: "${userInput}". Return JSON format: { algoValue: 1-5, arraySize: number}.
+  try {
+    const response = await fetch(
+      "https://api.groq.com/openai/v1/chat/completions",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer <your-api-key>",
+        },
+        body: JSON.stringify({
+          model: "llama-3.3-70b-versatile",
+          messages: [
+            {
+              role: "user",
+              content: `Analyze this prompt for a sorting visualizer: "${userInput}". Return JSON format: { algoValue: 1-5, arraySize: number}.
         # algoValues:
         1 - BubbleSort
         2 - SelectionSort
@@ -61,23 +62,28 @@ async function processChat() {
         5 - QuickSort
 
         `,
-          },
-        ],
-        response_format: { type: "json_object" },
-      }),
+            },
+          ],
+          response_format: { type: "json_object" },
+        }),
+      }
+    );
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data)
+      const result = JSON.parse(data.choices[0].message.content);
+
+      // Set algoValue and array size based on the response
+      document.querySelector(".algo-menu").value = result.algoValue;
+      document.querySelector(".size-menu").value = result.arraySize;
+
+      // Render the updated visualizer
+      start();
     }
-  );
-
-  const data = await response.json();
-  const result = JSON.parse(data.choices[0].message.content);
-
-  // Set algoValue and array size based on the response
-  document.querySelector(".algo-menu").value = result.algoValue;
-  document.querySelector(".size-menu").value = result.arraySize;
-
-  // Render the updated visualizer
-  // await RenderScreen();
-  start();
+  } catch (error) {
+    console.error("Error:", error);
+  }
 }
 
 // Function to stop sorting and reset the visualizer
