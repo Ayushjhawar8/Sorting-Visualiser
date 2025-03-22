@@ -292,11 +292,26 @@ const randomList = async (Length) => {
   return list;
 };
 
+let dynamicSizes = [];
 
 const generate = async () => {
   const n = Math.floor(Math.random() * 100);
   const list = Array.from({ length: n }, () => Math.floor(Math.random() * (50 - 5 + 1)) + 5); // Initialize array with random numbers
   const arrayNode = document.querySelector(".array");
+  const sizeMenu = document.querySelector(".size-menu");
+
+  let dynamicOption = document.querySelector("#dynamic-option");
+
+  if (!dynamicOption) {
+    dynamicOption = document.createElement("option");
+    dynamicOption.id = "dynamic-option";
+    sizeMenu.appendChild(dynamicOption);
+  }
+
+  dynamicOption.value = n;
+  dynamicOption.textContent = `${n}`;
+  dynamicOption.hidden = false;
+  sizeMenu.value = n;
 
   if (!arrayNode) {
     console.error("Element with class 'array' not found");
@@ -323,6 +338,13 @@ const generate = async () => {
     arrayNode.appendChild(node);
   }
 };
+
+document.querySelector(".size-menu").addEventListener("click", () => {
+  const dynamicOption = document.querySelector("#dynamic-option");
+  if (dynamicOption) {
+    dynamicOption.remove()
+  }
+});
 
 
 const clearScreen = async () => {
