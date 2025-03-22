@@ -3,7 +3,8 @@ class sortAlgorithms {
         this.list = document.querySelectorAll(".cell");
         this.size = this.list.length;
         this.time = time;
-        this.help = new Helper(this.time, this.list);
+        this.descending = document.querySelector(".order-menu").value === "desc";
+        this.help = new Helper(this.time, this.list, this.descending);
         this.stopped = false; // Flag to control stopping
     }
 
@@ -120,7 +121,7 @@ class sortAlgorithms {
         while (frontcounter <= mid && midcounter <= end) {
             let fvalue = Number(this.list[frontcounter].getAttribute("value"));
             let svalue = Number(this.list[midcounter].getAttribute("value"));
-            if (fvalue >= svalue) {
+            if (this.descending ? (fvalue < svalue) : (fvalue >= svalue)) {
                 newList.push(svalue);
                 ++midcounter;
             }
@@ -184,7 +185,7 @@ class sortAlgorithms {
             if (this.stopped) return;
             let currValue = Number(this.list[c].getAttribute("value"));
             await this.help.mark(c);
-            if (currValue < pivot) {
+            if (this.descending ? (currValue > pivot) : (currValue < pivot)) {
                 prev_index += 1;
                 await this.help.mark(prev_index);
                 await this.help.swap(c, prev_index);
