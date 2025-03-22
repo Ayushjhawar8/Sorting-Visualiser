@@ -215,6 +215,11 @@ const RenderList = async () => {
     node.className = "cell";
     node.setAttribute("value", String(element));
     node.style.height = `${3.8 * element}px`;
+    const span = document.createElement("span");
+    span.innerText = element;
+    span.className = "cell-value";
+
+    node.appendChild(span);
     arrayNode.appendChild(node);
   }
 };
