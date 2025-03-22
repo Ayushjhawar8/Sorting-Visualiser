@@ -210,16 +210,20 @@ const RenderList = async () => {
   const arrayNode = document.querySelector(".array");
   console.log(arrayNode);
   console.log(list);
+  const hideValues = arraySize >= 90;
   for (const element of list) {
     const node = document.createElement("div");
     node.className = "cell";
     node.setAttribute("value", String(element));
     node.style.height = `${3.8 * element}px`;
-    const span = document.createElement("span");
-    span.innerText = element;
-    span.className = "cell-value";
 
-    node.appendChild(span);
+    if (!hideValues) {
+      const span = document.createElement("span");
+      span.innerText = element;
+      span.className = "cell-value";
+      node.appendChild(span);
+    }
+
     arrayNode.appendChild(node);
   }
 };
@@ -300,6 +304,7 @@ const generate = async () => {
   }
 
   arrayNode.innerHTML = ""; // Clear previous elements before appending new ones
+  const hideValues = n >= 90;
 
   for (const element of list) {
     const node = document.createElement("div");
@@ -307,13 +312,14 @@ const generate = async () => {
     node.setAttribute("value", String(element));
     node.style.height = `${3.8 * element}px`;
 
-    // Create a span element to display the value
-    const span = document.createElement("span");
-    span.innerText = element;
-    span.className = "cell-value"; // For styling
-
-    // Append the span inside the node
-    node.appendChild(span);
+    if (!hideValues) {
+      // Create a span element to display the value
+      const span = document.createElement("span");
+      span.innerText = element;
+      span.className = "cell-value"; // For styling
+      // Append the span inside the node
+      node.appendChild(span);
+    }
     arrayNode.appendChild(node);
   }
 };
