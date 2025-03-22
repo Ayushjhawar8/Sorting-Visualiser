@@ -94,12 +94,14 @@ body {
 .cell {
   display: flex;
   align-items: flex-end;
+  justify-content: center;
   flex: 0.5;
   width: 0.000001%;
   margin: 1px;
   background-color: #bbb5b5;
-  resize: horizontal;
+
   position: relative;
+  
   transition: all 0.4s ease-in;
 }
 .cell.done {
@@ -125,6 +127,18 @@ body {
   border-color: #ff1493;
   color: white;
   transition: all 0.4s ease-out;
+}
+.cell-value {
+  position: absolute;
+  bottom: 2px; 
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  color: black;
+  font-weight: bold;
+  pointer-events: none; 
+  user-select: none; 
+
 }
 
 /* Footer CSS */
