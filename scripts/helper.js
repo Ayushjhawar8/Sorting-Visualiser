@@ -1,8 +1,9 @@
 "use strict";
 class Helper {
-    constructor(time, list = []) {
+    constructor(time, list = [], descending = false) {
         this.time = parseFloat(400 / time);
         this.list = list;
+        this.descending = descending;
     }
 
     mark = async (index) => {
@@ -29,10 +30,10 @@ class Helper {
         await this.pause();
         let value1 = Number(this.list[index1].getAttribute("value"));
         let value2 = Number(this.list[index2].getAttribute("value"));
-        if (value1 > value2) {
-            return true;
+        if (this.descending) {
+            return value1 < value2;
         }
-        return false;
+        return value1 > value2;
     }
 
     swap = async (index1, index2) => {
