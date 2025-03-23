@@ -121,7 +121,7 @@ class sortAlgorithms {
         while (frontcounter <= mid && midcounter <= end) {
             let fvalue = Number(this.list[frontcounter].getAttribute("value"));
             let svalue = Number(this.list[midcounter].getAttribute("value"));
-            if (this.descending ? (fvalue < svalue) : (fvalue >= svalue)) {
+            if (this.descending ? (fvalue <= svalue) : (fvalue >= svalue)) {
                 newList.push(svalue);
                 ++midcounter;
             }
@@ -147,6 +147,10 @@ class sortAlgorithms {
             await this.help.pause();
             this.list[c].setAttribute("value", newList[point]);
             this.list[c].style.height = `${3.5 * newList[point]}px`;
+            let span = this.list[c].querySelector(".cell-value");
+            if (span) {
+                span.innerText = newList[point];
+            }
         }
         for (let c = start; c <= end; ++c) {
             this.list[c].setAttribute("class", "cell");
