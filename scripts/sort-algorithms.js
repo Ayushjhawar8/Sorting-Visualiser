@@ -13,6 +13,16 @@ class sortAlgorithms {
         this.stopped = true;
     }
 
+    // Function to play sound when elements are swapped
+    playSwapSound() {
+        playSwapSound();
+    }
+
+    // Function to play sound when elements are compared
+    playCompareSound() {
+        // Remove the logic to play compare sound
+    }
+
     // BUBBLE SORT
     BubbleSort = async () => {
         this.stopped = false; // Reset the stopped flag at the start of sorting
@@ -23,6 +33,7 @@ class sortAlgorithms {
                 await this.help.mark(j);
                 await this.help.mark(j + 1);
                 if (await this.help.compare(j, j + 1)) {
+                    this.playSwapSound();
                     await this.help.swap(j, j + 1);
                 }
                 await this.help.unmark(j);
@@ -46,6 +57,7 @@ class sortAlgorithms {
                 await this.help.mark(j);
                 await this.help.mark(j + 1);
                 await this.help.pause();
+                this.playSwapSound();
                 await this.help.swap(j, j + 1);
                 await this.help.unmark(j);
                 await this.help.unmark(j + 1);
@@ -81,6 +93,7 @@ class sortAlgorithms {
             await this.help.mark(minIndex);
             await this.help.mark(i);
             await this.help.pause();
+            this.playSwapSound();
             await this.help.swap(minIndex, i);
             await this.help.unmark(minIndex);
             this.list[i].setAttribute("class", "cell done");
@@ -145,6 +158,7 @@ class sortAlgorithms {
         for (let c = start, point = 0; c <= end && point < newList.length;
             ++c, ++point) {
             await this.help.pause();
+            this.playSwapSound();
             this.list[c].setAttribute("value", newList[point]);
             this.list[c].style.height = `${3.5 * newList[point]}px`;
             let span = this.list[c].querySelector(".cell-value");
@@ -192,11 +206,13 @@ class sortAlgorithms {
             if (this.descending ? (currValue > pivot) : (currValue < pivot)) {
                 prev_index += 1;
                 await this.help.mark(prev_index);
+                this.playSwapSound();
                 await this.help.swap(c, prev_index);
                 await this.help.unmark(prev_index);
             }
             await this.help.unmark(c);
         }
+        this.playSwapSound();
         await this.help.swap(prev_index + 1, end);
         await this.help.unmark(end);
         return prev_index + 1;
