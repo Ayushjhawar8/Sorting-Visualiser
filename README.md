@@ -115,4 +115,6 @@ We welcome contributions! Before contributing, please read our [Contributing Gui
 
 ---
 
+[🔝 Back to Top](#-sorting-visualizer)
+
 🔥 Happy Coding! 🎉
