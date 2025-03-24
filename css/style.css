@@ -1,6 +1,8 @@
 :root {
   --primary-color: #1abc9c;
   --secondary-color: #16a085;
+  --button-hover-color: #148f77; /* New color for button hover */
+  --title-color: #0e6655; /* New color for title */
 }
 * {
   /* Below is the standard CSS code one should add to get rid of default margins and padding which most of tge HTML elements have */
@@ -22,7 +24,7 @@ body {
 
 /* Title CSS */
 .title {
-  background-color: var(--primary-color);
+  background-color: var(--title-color); /* Updated title color */
   text-align: center;
   font-size: 1.2em;
   padding-block: 0.5em;
@@ -51,10 +53,10 @@ body {
   padding: 8px 10px;
   border-radius: 6px;
   transition: 0.3s;
-  background-color: #1abc9c;
+  background-color: var(--primary-color);
 }
 .navbar a:hover {
-  background-color: transparent;
+  background-color: var(--button-hover-color); /* Updated button hover color */
 }
 .navbar #menu {
   width: fit-content;
@@ -94,12 +96,14 @@ body {
 .cell {
   display: flex;
   align-items: flex-end;
+  justify-content: center;
   flex: 0.5;
   width: 0.000001%;
   margin: 1px;
   background-color: #bbb5b5;
-  resize: horizontal;
+
   position: relative;
+  
   transition: all 0.4s ease-in;
 }
 .cell.done {
@@ -125,6 +129,18 @@ body {
   border-color: #ff1493;
   color: white;
   transition: all 0.4s ease-out;
+}
+.cell-value {
+  position: absolute;
+  bottom: 2px; 
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  color: black;
+  font-weight: bold;
+  pointer-events: none; 
+  user-select: none; 
+
 }
 
 /* Footer CSS */
@@ -194,7 +210,7 @@ footer {
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease;
-}
+  }
 
 .chat-toggle-button:hover {
   transform: scale(1.1);
@@ -320,6 +336,30 @@ footer {
   background-color: #6c6c6c;
 }
 
+.dark-mode .cell.done {
+  background-color: #9cec5b;
+  border-color: #9cec5b;
+  color: white;
+}
+
+.dark-mode .cell.visited {
+  border-color: #6184d8;
+  background-color: #6184d8;
+  color: white;
+}
+
+.dark-mode .cell.current {
+  border-color: #50c5b7;
+  background-color: #50c5b7;
+  color: white;
+}
+
+.dark-mode .cell.min {
+  background-color: #ff1493;
+  border-color: #ff1493;
+  color: white;
+}
+
 .dark-mode .options select {
   background-color: #333;
   color: white;
@@ -373,7 +413,8 @@ footer {
   height: 40px;
   display: block; /* Make the button a block element */
   width: 200px;   /* Set a fixed width for the button */
-  margin: 0 auto; /
+  margin: 0 auto; 
+  border: 2px solid #2b5659; /* Added border around the circle */
 }
 
 #theme-toggle:hover {
