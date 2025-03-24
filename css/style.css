@@ -384,3 +384,69 @@ footer {
   background-color: #333;
   color: white;
 }
+
+
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 10;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  width: 60%;
+  margin: 10% auto;
+  text-align: center;
+  font-size: larger;
+  border-radius: 20px;
+}
+canvas {
+  background-color: rgb(201, 255, 216);
+  width: 100% !important;  /* Full width inside modal */
+  height: 100% !important; /* Takes up modal height */
+  max-height: 70vh;       /* Prevents overflow */
+  margin-top: -150px;
+}
+
+/* Glossy Glass-Style Green Button */
+button {
+  background: linear-gradient(145deg, #4caf50, #2e7d32); /* Green gradient */
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 5px 8px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 255, 0, 0.3); /* Soft glow */
+  transition: all 0.3s ease-in-out;
+  backdrop-filter: blur(10px); /* Glass effect */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Hover Effect */
+button:hover {
+  background: linear-gradient(145deg, #66bb6a, #43a047);
+  box-shadow: 0 6px 15px rgba(0, 255, 0, 0.5);
+  transform: scale(1.05);
+}
+
+/* Active (Click) Effect */
+button:active {
+  transform: scale(0.98);
+  box-shadow: 0 2px 5px rgba(0, 255, 0, 0.4);
+}
+
+/* Responsive Design */
+@media screen and (max-width: 600px) {
+  button {
+    font-size: 16px;
+    padding: 10px 20px;
+  }
+}

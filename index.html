@@ -77,6 +77,24 @@
     <div class="array"></div>
   </div>
 
+<!-- Algorithm Description Modal -->
+<div id="algoModal" class="modal">
+  <div class="modal-content">
+    <h3 id="algoTitle">Algorithm Details</h3>
+    <ul id="algoDetails"></ul>
+    <button onclick="closeAlgoModal()">Next</button>
+  </div>
+</div>
+
+<!-- Time Complexity Graph Modal (Plotted with JavaScript) -->
+<div id="graphContainer" class="modal">
+  <div class="modal-content">
+    <h3>Time Complexity Analysis</h3>
+    <canvas id="complexityChart"></canvas>  <!-- Canvas for Graph -->
+    <button onclick="closeGraphModal()">Start Sorting</button>
+  </div>
+</div>
+
   <!-- Chat Popup Button and Container -->
   <button class="chat-toggle-button" onclick="toggleChat()">💬</button>
 
@@ -98,6 +116,7 @@
   <script src="./scripts/helper.js"></script>
   <script src="./scripts/sort-algorithms.js"></script>
   <script src="./scripts/darkmode.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 
 </html>

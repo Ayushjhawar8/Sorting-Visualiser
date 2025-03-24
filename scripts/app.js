@@ -301,3 +301,158 @@ document.querySelector(".start").addEventListener("click", start);
 document.querySelector(".size-menu").addEventListener("change", RenderList);
 document.querySelector(".input").addEventListener("change", RenderInput);
 window.onload = RenderList;
+
+// Algorithm descriptions
+const algoDescriptions = {
+  1: {
+    name: "Bubble Sort",
+    points: [
+      "Repeatedly swaps adjacent elements if they are in the wrong order.",
+      "Time Complexity: O(n²) in worst and average case.",
+      "Best Case: O(n) (already sorted).",
+      "Stable sorting algorithm.",
+      "Not efficient for large datasets.",
+      "Can be optimized using a swapped flag.",
+      "Good for small datasets or educational purposes."
+    ]
+  },
+  2: {
+    name: "Selection Sort",
+    points: [
+      "Finds the minimum element and swaps it with the first unsorted element.",
+      "Time Complexity: O(n²) in all cases.",
+      "Best Case: O(n²) (no improvements for sorted data).",
+      "Not a stable sorting algorithm.",
+      "Efficient for small datasets.",
+      "Simple to understand and implement."
+    ]
+  },
+  3: {
+    name: "Insertion Sort",
+    points: [
+      "Builds the sorted list one element at a time by shifting elements.",
+      "Time Complexity: O(n²) in the worst case.",
+      "Best Case: O(n) (when nearly sorted).",
+      "Stable sorting algorithm.",
+      "Good for small datasets or nearly sorted data.",
+      "Performs well in adaptive scenarios."
+    ]
+  },
+  4: {
+    name: "Merge Sort",
+    points: [
+      "Uses divide and conquer to split and merge arrays.",
+      "Time Complexity: O(n log n) in all cases.",
+      "Stable sorting algorithm.",
+      "Requires additional space O(n).",
+      "Efficient for large datasets and parallel processing.",
+      "Used in real-world applications."
+    ]
+  },
+  5: {
+    name: "Quick Sort",
+    points: [
+      "Uses divide and conquer with a pivot to partition arrays.",
+      "Time Complexity: O(n log n) on average, O(n²) in worst case.",
+      "Best Case: O(n log n) (random pivot).",
+      "Not a stable sorting algorithm.",
+      "Efficient for large datasets.",
+      "Commonly used in programming libraries."
+    ]
+  }
+};
+
+// Function to show algorithm description modal
+function showAlgoModal() {
+  let algoValue = Number(document.querySelector(".algo-menu").value);
+  if (algoValue === 0) {
+    alert("Please select an algorithm!");
+    return;
+  }
+
+  let modal = document.getElementById("algoModal");
+  let title = document.getElementById("algoTitle");
+  let details = document.getElementById("algoDetails");
+
+  let algoInfo = algoDescriptions[algoValue];
+  title.innerText = algoInfo.name;
+  details.innerHTML = algoInfo.points.map(point => `<li>${point}</li>`).join("");
+
+  modal.style.display = "block";
+}
+
+// Close algorithm modal and show graph modal
+function closeAlgoModal() {
+  document.getElementById("algoModal").style.display = "none";
+  showGraphModal();
+}
+
+// Function to show the time complexity graph modal
+function showGraphModal() {
+  let algoValue = Number(document.querySelector(".algo-menu").value);
+  let modal = document.getElementById("graphContainer");
+
+  // Plot the complexity graph
+  plotComplexityGraph(algoValue);
+
+  modal.style.display = "block";
+}
+
+// Function to close the graph modal and start sorting
+function closeGraphModal() {
+  document.getElementById("graphContainer").style.display = "none";
+  start();
+}
+
+// Attach event listener when an algorithm is selected
+document.querySelector(".algo-menu").addEventListener("change", showAlgoModal);
+
+// Function to plot the complexity graph dynamically using Chart.js
+function plotComplexityGraph(algoValue) {
+  let ctx = document.getElementById("complexityChart").getContext("2d");
+
+  // Define complexity functions
+  let n_values = Array.from({ length: 100 }, (_, i) => i + 1);
+  let bestCase, avgCase, worstCase;
+
+  switch (algoValue) {
+    case 1: // Bubble Sort
+      bestCase = n_values.map(n => n);         // O(n)
+      avgCase = n_values.map(n => n * n);      // O(n²)
+      worstCase = n_values.map(n => n * n);    // O(n²)
+      break;
+    case 2: // Selection Sort
+      bestCase = n_values.map(n => n * n);     // O(n²)
+      avgCase = n_values.map(n => n * n);      // O(n²)
+      worstCase = n_values.map(n => n * n);    // O(n²)
+      break;
+    case 3: // Insertion Sort
+      bestCase = n_values.map(n => n);         // O(n)
+      avgCase = n_values.map(n => n * n);      // O(n²)
+      worstCase = n_values.map(n => n * n);    // O(n²)
+      break;
+    case 4: // Merge Sort
+      bestCase = n_values.map(n => n * Math.log2(n)); // O(n log n)
+      avgCase = n_values.map(n => n * Math.log2(n));  // O(n log n)
+      worstCase = n_values.map(n => n * Math.log2(n));// O(n log n)
+      break;
+    case 5: // Quick Sort
+      bestCase = n_values.map(n => n * Math.log2(n)); // O(n log n)
+      avgCase = n_values.map(n => n * Math.log2(n));  // O(n log n)
+      worstCase = n_values.map(n => n * n);           // O(n²)
+      break;
+  }
+
+  new Chart(ctx, {
+    type: "line",
+    data: {
+      labels: n_values,
+      datasets: [
+        { label: "Best Case", data: bestCase, borderColor: "green", fill: false },
+        { label: "Average Case", data: avgCase, borderColor: "blue", fill: false },
+        { label: "Worst Case", data: worstCase, borderColor: "red", fill: false }
+      ]
+    },
+    options: { responsive: true, maintainAspectRatio: false }
+  });
+}
