@@ -16,13 +16,13 @@
 
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
     <link rel="stylesheet" href="./css/style.css" />
-    <title>Sorting visualizer</title>
+    <title>Sorting Visualizer</title>
   </head>
 
   <body id="body">
     <div class="nav-container">
       <h2 class="title" onclick="window.location.reload()">
-        Sorting visualizer
+        Sorting Visualizer
       </h2>
       <a id="theme-toggle" class="theme-btn"><i class="fa fa-moon-o"></i></a>
       <div class="navbar" id="navbar">
@@ -60,7 +60,6 @@
             <option value="-1" id="size-custom">Custom</option>
           </select>
         </span>
-        <!-- <input type="text" placeholder="Input Array..." id="menu1">  -->
         <span class="options">
           <select name="input" id="menu" class="input">
             <option value="N">Input</option>
@@ -116,15 +115,42 @@
       </div>
     </div>
 
-    <footer class="footer">
-      <p>
-        Time Complexity = <span id="time"></span> and Total Time Taken =
-        <span id="Ttime"></span> seconds
-      </p>
+    <!-- New Footer -->
+    <footer class="app-footer">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h4>Sorting Visualizer</h4>
+          <p>Explore and understand sorting algorithms visually</p>
+        </div>
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#" onclick="window.location.reload()">Home</a></li>
+            <li><a href="#" onclick="document.querySelector('.algo-menu').focus()">Algorithms</a></li>
+            <li><a href="#" onclick="document.querySelector('.size-menu').focus()">Array Size</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Performance</h4>
+          <p>Time Complexity: <span id="time-complexity">-</span></p>
+          <p>Total Time: <span id="total-time">-</span> seconds</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 Sorting Visualizer. Created with ❤️</p>
+      </div>
     </footer>
+
     <script src="./scripts/app.js"></script>
     <script src="./scripts/helper.js"></script>
     <script src="./scripts/sort-algorithms.js"></script>
     <script src="./scripts/darkmode.js"></script>
+    <script>
+      // Update performance metrics in footer
+      function updateFooterPerformance(complexity, totalTime) {
+        document.getElementById('time-complexity').textContent = complexity || '-';
+        document.getElementById('total-time').textContent = totalTime ? totalTime.toFixed(2) : '-';
+      }
+    </script>
   </body>
 </html>
