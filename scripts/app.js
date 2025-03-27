@@ -4,6 +4,8 @@ let algorithm; // To allow stopping the algorithm
 
 let speedMultiplier = 1; // Default speed multiplier
 let arraySize = 0; // Default array size
+const baseHeight = 15;  // Minimum height to ensure visibility
+const scalingFactor = 3.8;  // Scaling for larger values
 
 function toggleChat() {
   const chatContainer = document.getElementById("chatContainer");
@@ -39,20 +41,21 @@ async function processChat() {
   const userInput = document.getElementById("chatInput").value;
   if (userInput == "") return;
   // Call the AI model API here
-  const response = await fetch(
-    "https://api.groq.com/openai/v1/chat/completions",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer <groq-api-key>",
-      },
-      body: JSON.stringify({
-        model: "llama3-groq-70b-8192-tool-use-preview",
-        messages: [
-          {
-            role: "user",
-            content: `Analyze this prompt for a sorting visualizer: "${userInput}". Return JSON format: { algoValue: 1-5, arraySize: number}.
+  try {
+    const response = await fetch(
+      "https://api.groq.com/openai/v1/chat/completions",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer <your-api-key>",
+        },
+        body: JSON.stringify({
+          model: "llama-3.3-70b-versatile",
+          messages: [
+            {
+              role: "user",
+              content: `Analyze this prompt for a sorting visualizer: "${userInput}". Return JSON format: { algoValue: 1-5, arraySize: number}.
         # algoValues:
         1 - BubbleSort
         2 - SelectionSort
@@ -61,23 +64,28 @@ async function processChat() {
         5 - QuickSort
 
         `,
-          },
-        ],
-        response_format: { type: "json_object" },
-      }),
+            },
+          ],
+          response_format: { type: "json_object" },
+        }),
+      }
+    );
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data)
+      const result = JSON.parse(data.choices[0].message.content);
+
+      // Set algoValue and array size based on the response
+      document.querySelector(".algo-menu").value = result.algoValue;
+      document.querySelector(".size-menu").value = result.arraySize;
+
+      // Render the updated visualizer
+      start();
     }
-  );
-
-  const data = await response.json();
-  const result = JSON.parse(data.choices[0].message.content);
-
-  // Set algoValue and array size based on the response
-  document.querySelector(".algo-menu").value = result.algoValue;
-  document.querySelector(".size-menu").value = result.arraySize;
-
-  // Render the updated visualizer
-  // await RenderScreen();
-  start();
+  } catch (error) {
+    console.error("Error:", error);
+  }
 }
 
 // Function to stop sorting and reset the visualizer
@@ -100,7 +108,7 @@ const selectCustomArraySize = async () => {
   let sizeValueStr = prompt("Enter custom array size:");
   try {
     let sizeValue = parseInt(sizeValueStr);
-    if (sizeValue > 0) {
+    if (sizeValue > 0 && sizeValue <= 200) {
       arraySize = sizeValue;
       setCustomArraySizeValue(`Custom (${sizeValue})`, sizeValue);
     } else {
@@ -204,11 +212,20 @@ const RenderList = async () => {
   const arrayNode = document.querySelector(".array");
   console.log(arrayNode);
   console.log(list);
+  const hideValues = arraySize >= 90;
   for (const element of list) {
     const node = document.createElement("div");
     node.className = "cell";
     node.setAttribute("value", String(element));
-    node.style.height = `${3.8 * element}px`;
+    node.style.height = `${baseHeight + scalingFactor * element}px`;
+
+    if (!hideValues) {
+      const span = document.createElement("span");
+      span.innerText = element;
+      span.className = "cell-value";
+      node.appendChild(span);
+    }
+
     arrayNode.appendChild(node);
   }
 };
@@ -233,32 +250,70 @@ const RenderArray = async (sorted) => {
 };
 
 const randomList = async (Length) => {
-  let list = new Array();
-  let lowerBound = 1;
-  let upperBound = 100;
+  let list = [];
+  const lowerBound = 1;
+  const upperBound = 100;
 
-  if (input == "Y") {
-    for (let counter = 0; counter < Length; ++counter) {
-      let randomNumber = prompt("Enter the no.");
-      list.push(parseInt(randomNumber));
+  if (input === "Y") {
+    if (Length > 20) {
+      const proceed = confirm(
+        `Manual input for ${Length} elements may take time. Autofill with random values?`
+      );
+      if (proceed) {
+        for (let i = 0; i < Length; i++) {
+          list.push(
+            Math.floor(Math.random() * (upperBound - lowerBound + 1) + lowerBound)
+          );
+        }
+        return list;
+      }
+    }
+
+    const batchInput = prompt(
+      `Enter ${Length} comma-separated values (e.g., 10, 20, 30)`
+    );
+
+    if (batchInput) {
+      list = batchInput
+        .split(",")
+        .map((val) => parseInt(val.trim()))
+        .filter((num) => !isNaN(num));
+
+      if (list.length !== Length) {
+        alert(`Invalid input. Generating random ${Length} elements.`);
+        return Array.from({ length: Length }, () =>
+          Math.floor(Math.random() * (upperBound - lowerBound + 1) + lowerBound)
+        );
+      }
     }
   } else {
-    for (let counter = 0; counter < Length; ++counter) {
-      let randomNumber = Math.floor(
-        Math.random() * (upperBound - lowerBound + 1) + lowerBound
-      );
-      list.push(parseInt(randomNumber));
-    }
+    list = Array.from({ length: Length }, () =>
+      Math.floor(Math.random() * (upperBound - lowerBound + 1) + lowerBound)
+    );
   }
-
-
   return list;
 };
 
+let dynamicSizes = [];
+
 const generate = async () => {
   const n = Math.floor(Math.random() * 100);
-  const list = Array.from({ length: n }, () => Math.floor(Math.random()  * (50 - 5 + 1)) + 5); // Initialize array with random numbers
+  const list = Array.from({ length: n }, () => Math.floor(Math.random() * (50 - 5 + 1)) + 5); // Initialize array with random numbers
   const arrayNode = document.querySelector(".array");
+  const sizeMenu = document.querySelector(".size-menu");
+
+  let dynamicOption = document.querySelector("#dynamic-option");
+
+  if (!dynamicOption) {
+    dynamicOption = document.createElement("option");
+    dynamicOption.id = "dynamic-option";
+    sizeMenu.appendChild(dynamicOption);
+  }
+
+  dynamicOption.value = n;
+  dynamicOption.textContent = `${n}`;
+  dynamicOption.hidden = false;
+  sizeMenu.value = n;
 
   if (!arrayNode) {
     console.error("Element with class 'array' not found");
@@ -266,23 +321,32 @@ const generate = async () => {
   }
 
   arrayNode.innerHTML = ""; // Clear previous elements before appending new ones
+  const hideValues = n >= 90;
 
   for (const element of list) {
     const node = document.createElement("div");
     node.className = "cell";
     node.setAttribute("value", String(element));
-    node.style.height = `${3.8 * element}px`;
-  
-    // Create a span element to display the value
-    const span = document.createElement("span");
-    span.innerText = element;
-    span.className = "cell-value"; // For styling
-  
-    // Append the span inside the node
-    node.appendChild(span);
+    node.style.height = `${baseHeight + scalingFactor * element}px`;
+
+    if (!hideValues) {
+      // Create a span element to display the value
+      const span = document.createElement("span");
+      span.innerText = element;
+      span.className = "cell-value"; // For styling
+      // Append the span inside the node
+      node.appendChild(span);
+    }
     arrayNode.appendChild(node);
   }
 };
+
+document.querySelector(".size-menu").addEventListener("click", () => {
+  const dynamicOption = document.querySelector("#dynamic-option");
+  if (dynamicOption) {
+    dynamicOption.remove()
+  }
+});
 
 
 const clearScreen = async () => {

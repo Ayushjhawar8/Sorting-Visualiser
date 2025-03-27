@@ -49,7 +49,7 @@ This project has been a part of:
 
 | 🏆 Event | 📜 Description |
 |----------|--------------|
-| ![Apertre 2.0](https://s2apertre.resourcio.in/assets/images/logo.png) | [Apertre 2.0](https://s2apertre.resourcio.in/) hosted by [Resourcio Community](https://resourcio.in/) – An Open Source Contribution Event. Read more about it [here](https://s2apertre.resourcio.in/). Mentee guidelines are available [here](https://vintage-dirigible-080.notion.site/Mentee-Guide-1a4ef2cebc7b80e9bfaec37fe179d469). |
+| ![Apertre 2.0](https://s2apertre.resourcio.in/Logo_primary.svg) | [Apertre 2.0](https://s2apertre.resourcio.in/) hosted by [Resourcio Community](https://resourcio.in/) – An Open Source Contribution Event. Read more about it [here](https://s2apertre.resourcio.in/). Mentee guidelines are available [here](https://vintage-dirigible-080.notion.site/Mentee-Guide-1a4ef2cebc7b80e9bfaec37fe179d469). |
 
 ---
 
@@ -114,5 +114,7 @@ We welcome contributions! Before contributing, please read our [Contributing Gui
 🔗 **LinkedIn:** [Your Profile](https://www.linkedin.com/in/yourprofile)  
 
 ---
+
+[🔝 Back to Top](#-sorting-visualizer)
 
 🔥 Happy Coding! 🎉
