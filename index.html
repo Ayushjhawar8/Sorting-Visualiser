@@ -90,7 +90,22 @@
       <button id="chatButton" onclick="sendChat()">Send</button>
     </div>
   </div>
+  <button class="chat-toggle-button" onclick="toggleChat()">💬</button>
 
+  <div class="chat-container" id="chatContainer">
+    <div class="chat-header">
+      <h4>Chat Assistant</h4>
+      <button class="close-chat" onclick="toggleChat()">✖</button>
+    </div>
+    <div class="chat-body">
+      <input
+        type="text"
+        id="chatInput"
+        placeholder="Type your request here..."
+      />
+      <button id="chatButton" onclick="sendChat()">Send</button>
+    </div>
+  </div>
   <footer class="footer">
     <p>Time Complexity = <span id="time"></span> and Total Time Taken = <span id="Ttime"></span> seconds</p>
   </footer>
