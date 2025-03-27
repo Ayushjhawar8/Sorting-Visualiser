@@ -4,6 +4,8 @@ let algorithm; // To allow stopping the algorithm
 
 let speedMultiplier = 1; // Default speed multiplier
 let arraySize = 0; // Default array size
+const baseHeight = 15;  // Minimum height to ensure visibility
+const scalingFactor = 3.8;  // Scaling for larger values
 
 function toggleChat() {
   const chatContainer = document.getElementById("chatContainer");
@@ -215,7 +217,7 @@ const RenderList = async () => {
     const node = document.createElement("div");
     node.className = "cell";
     node.setAttribute("value", String(element));
-    node.style.height = `${3.8 * element}px`;
+    node.style.height = `${baseHeight + scalingFactor * element}px`;
 
     if (!hideValues) {
       const span = document.createElement("span");
@@ -325,7 +327,7 @@ const generate = async () => {
     const node = document.createElement("div");
     node.className = "cell";
     node.setAttribute("value", String(element));
-    node.style.height = `${3.8 * element}px`;
+    node.style.height = `${baseHeight + scalingFactor * element}px`;
 
     if (!hideValues) {
       // Create a span element to display the value

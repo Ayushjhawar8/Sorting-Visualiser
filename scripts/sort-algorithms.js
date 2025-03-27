@@ -146,7 +146,9 @@ class sortAlgorithms {
             ++c, ++point) {
             await this.help.pause();
             this.list[c].setAttribute("value", newList[point]);
-            this.list[c].style.height = `${3.5 * newList[point]}px`;
+            const baseHeight = 15;  // Minimum height for visibility
+            const scalingFactor = 3.8;  // Scaling for larger values
+            this.list[c].style.height = `${baseHeight + scalingFactor * newList[point]}px`;
             let span = this.list[c].querySelector(".cell-value");
             if (span) {
                 span.innerText = newList[point];
