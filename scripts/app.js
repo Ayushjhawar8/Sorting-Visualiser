@@ -273,7 +273,7 @@ const randomList = async (Length) => {
       `Enter ${Length} comma-separated values (e.g., 10, 20, 30)`
     );
 
-    if (batchInput) {
+    if (batchInput !== null) {
       list = batchInput
         .split(",")
         .map((val) => parseInt(val.trim()))
@@ -285,6 +285,11 @@ const randomList = async (Length) => {
           Math.floor(Math.random() * (upperBound - lowerBound + 1) + lowerBound)
         );
       }
+    } else {
+      alert(`Canceled. Generating random ${Length} elements.`);
+      list = Array.from({ length: Length }, () =>
+        Math.floor(Math.random() * (upperBound - lowerBound + 1) + lowerBound)
+      );
     }
   } else {
     list = Array.from({ length: Length }, () =>
