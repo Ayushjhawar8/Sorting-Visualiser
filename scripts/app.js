@@ -4,6 +4,8 @@ let algorithm; // To allow stopping the algorithm
 
 let speedMultiplier = 1; // Default speed multiplier
 let arraySize = 0; // Default array size
+const baseHeight = 15;  // Minimum height to ensure visibility
+const scalingFactor = 3.8;  // Scaling for larger values
 
 function toggleChat() {
   const chatContainer = document.getElementById("chatContainer");
@@ -215,7 +217,7 @@ const RenderList = async () => {
     const node = document.createElement("div");
     node.className = "cell";
     node.setAttribute("value", String(element));
-    node.style.height = `${3.8 * element}px`;
+    node.style.height = `${baseHeight + scalingFactor * element}px`;
 
     if (!hideValues) {
       const span = document.createElement("span");
@@ -271,7 +273,7 @@ const randomList = async (Length) => {
       `Enter ${Length} comma-separated values (e.g., 10, 20, 30)`
     );
 
-    if (batchInput) {
+    if (batchInput !== null) {
       list = batchInput
         .split(",")
         .map((val) => parseInt(val.trim()))
@@ -283,6 +285,11 @@ const randomList = async (Length) => {
           Math.floor(Math.random() * (upperBound - lowerBound + 1) + lowerBound)
         );
       }
+    } else {
+      alert(`Canceled. Generating random ${Length} elements.`);
+      list = Array.from({ length: Length }, () =>
+        Math.floor(Math.random() * (upperBound - lowerBound + 1) + lowerBound)
+      );
     }
   } else {
     list = Array.from({ length: Length }, () =>
@@ -325,7 +332,7 @@ const generate = async () => {
     const node = document.createElement("div");
     node.className = "cell";
     node.setAttribute("value", String(element));
-    node.style.height = `${3.8 * element}px`;
+    node.style.height = `${baseHeight + scalingFactor * element}px`;
 
     if (!hideValues) {
       // Create a span element to display the value
