@@ -378,64 +378,97 @@ window.onload = RenderList;
 
 /* floting partile background effect.......................................   */
 
-document.addEventListener("DOMContentLoaded", function () {
-  const canvas = document.getElementById("particleCanvas");
-  const ctx = canvas.getContext("2d");
 
-  let particles = [];
-  let particleCount = 100;
+const canvas = document.createElement("canvas");
+const ctx = canvas.getContext("2d");
+document.body.appendChild(canvas);
 
-  function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
+canvas.style.position = "fixed";
+canvas.style.top = "0";
+canvas.style.left = "0";
+canvas.style.pointerEvents = "none"; 
+canvas.style.zIndex = "-1"; 
 
-  window.addEventListener("resize", resizeCanvas);
-  resizeCanvas(); 
+let particles = [];
+const numParticles = 100;
 
-  class Particle {
-    constructor() {
-      this.x = Math.random() * canvas.width;
-      this.y = Math.random() * canvas.height;
-      this.radius = Math.random() * 3 + 1;
-      this.speedX = Math.random() * 2 - 1;
-      this.speedY = Math.random() * 2 - 1;
-    }
 
-    update() {
-      this.x += this.speedX;
-      this.y += this.speedY;
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+window.addEventListener("resize", resizeCanvas);
+resizeCanvas(); 
 
-      
-      if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-      if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-    }
 
-    draw() {
-      ctx.fillStyle = "rgba(255, 255, 255, 0.7)";
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-      ctx.fill();
-    }
-  }
+function getTheme() {
+  return document.body.classList.contains("dark-mode") ? "dark" : "light";
+}
 
-  function initParticles() {
-    particles = [];
-    for (let i = 0; i < particleCount; i++) {
-      particles.push(new Particle());
-    }
-  }
 
-  function animateParticles() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particles.forEach((p) => {
-      p.update();
-      p.draw();
+function createParticles() {
+  particles = [];
+  const theme = getTheme();
+  const particleColor = theme === "dark" ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.5)"; // White for dark mode, Black for light mode
+
+  for (let i = 0; i < numParticles; i++) {
+    particles.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      radius: Math.random() * 3 + 2, 
+      color: particleColor,
+      speedX: (Math.random() - 0.5) * 2,
+      speedY: (Math.random() - 0.5) * 2,
     });
-    requestAnimationFrame(animateParticles);
   }
+}
 
-  initParticles();
-  animateParticles();
+
+function drawParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (let p of particles) {
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+    ctx.fillStyle = p.color;
+    ctx.fill();
+  }
+}
+
+
+function updateParticles() {
+  for (let p of particles) {
+    p.x += p.speedX;
+    p.y += p.speedY;
+
+    
+    if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
+    if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
+  }
+}
+
+
+function animate() {
+  drawParticles();
+  updateParticles();
+  requestAnimationFrame(animate);
+}
+
+
+function updateThemeParticles() {
+  const theme = getTheme();
+  const newColor = theme === "dark" ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.5)";
+
+  particles.forEach((p) => {
+    p.color = newColor;
+  });
+}
+
+// Detecting theme toggle and update particles
+document.getElementById("theme-toggle").addEventListener("click", () => {
+  document.body.classList.toggle("dark-mode");
+  updateThemeParticles();
 });
 
+
+createParticles();
+animate();
