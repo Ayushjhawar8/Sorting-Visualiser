@@ -472,3 +472,11 @@ document.getElementById("theme-toggle").addEventListener("click", () => {
 
 createParticles();
 animate();
+
+
+
+// Refresh button logic..........
+
+document.getElementById("refresh-btn").addEventListener("click", function () {
+  location.reload(); 
+});
