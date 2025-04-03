@@ -219,10 +219,9 @@ footer {
 /* Chat Container Styling */
 .chat-container {
   position: fixed;
-  bottom: 80px;
+  bottom: 70px;
   right: 20px;
   width: 300px;
-  background-color: #f0f0f0;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: none;
@@ -231,6 +230,11 @@ footer {
   opacity: 0;               /* Initial hidden state */
   transform: translateY(20px); /* Slide from 20px below */
   transition: transform 0.3s ease, opacity 0.3s ease;
+  background-color: #fff; 
+  max-height: 400px; 
+  overflow-y: auto; 
+  z-index: 1000; 
+  transition: all 0.3s ease;
 }
 
 .chat-container.show {
@@ -250,7 +254,7 @@ footer {
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  background-color: #3b82f6;
+  background-color: #3498db;
   color: white;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
@@ -273,8 +277,16 @@ footer {
 .chat-body {
   display: flex;
   padding: 10px;
+    max-height: 300px; 
+    overflow-y: auto;
 }
-
+.chat-body input{
+width: calc(100% - 60px); 
+    padding: 10px;
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    margin-right: 10px;
+}
 #chatInput {
   flex: 1;
   padding: 8px;
@@ -286,17 +298,37 @@ footer {
 }
 
 #chatButton {
-  background-color: #3b82f6;
   color: #fff;
   border: none;
   border-radius: 5px;
-  padding: 8px 12px;
+  padding: 10px 15px;
   font-size: 14px;
   cursor: pointer;
+    background-color: #3498db; 
+    
+    transition: background-color 0.3s ease; 
 }
 
 #chatButton:hover {
-  background-color: #2563eb;
+  background-color: #2980b9;
+  background-color: linear-gradient(#0f8b7d,#2980b9);
+}
+.chat-toggle-button {
+  background-color: #3498db; 
+  background-color: linear-gradient(#0f8b7d,#2980b9);
+  color: #fff; 
+  border: none; 
+  border-radius: 50%; 
+  width: 50px; 
+  position: fixed;
+  bottom: 20px; 
+  right: 20px; 
+  cursor: pointer; 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+  transition: background-color 0.3s ease;
+}
+.chat-toggle-button:hover {
+  background-color: #2980b9; /* Darker shade on hover */
 }
 
 /* Light Mode (Default) */
