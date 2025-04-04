@@ -477,3 +477,29 @@ body {
   z-index: -1;
 }
 
+
+/*refresh button styling........... */
+
+#refresh-btn {
+  all: unset;
+  cursor: pointer;
+  color: #fff;
+  font-weight: bold;
+  padding: 7px 9px;
+  border-radius: 6px;
+  transition: 0.3s;
+  background-color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  gap: 5px; 
+}
+
+#refresh-btn:hover {
+  background-color: var(--button-hover-color);
+}
+
+#refresh-btn i {
+  font-size: 16px;
+}
+
+
