@@ -143,26 +143,42 @@ body {
 
 }
 
-/* Footer CSS */
-.fa.fa-heart {
-  color: #eb2c13;
-}
-footer {
+/* Footer CSS.................... */
+.time-info {
+  display: none;
+  font-family: 'Roboto', sans-serif;
+  color: #00ffc8;
+  font-size: 1.1rem;
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid #00ffc8;
+  padding: 10px 20px;
+  margin: 20px auto;
+  border-radius: 10px;
+  width: fit-content;
+  box-shadow: 0 0 15px #00ffc8aa;
+  animation: fadeInScale 0.8s ease-in-out;
+  transition: all 0.3s ease-in-out;
   text-align: center;
-  font-size: 18px;
-  color: #2c3e50;
-  padding: 1.6em;
-  visibility: hidden;
+  backdrop-filter: blur(6px);
 }
-.footer > p:nth-child(1) {
-  margin-bottom: 0.6em;
-  visibility: hidden;
+
+@keyframes fadeInScale {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
-#time ,
-#Ttime
-{
+
+.time-info span {
   font-weight: bold;
+  color: #fffb00;
+  text-shadow: 0 0 5px #fff200;
 }
+
 /* .footer > p:nth-child(2) {
   margin-bottom: 0.6em;
 } */
