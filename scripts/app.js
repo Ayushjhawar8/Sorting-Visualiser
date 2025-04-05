@@ -187,6 +187,8 @@ const start = async () => {
   if (algoValue === 5) await algorithm.QuickSort();
   let now1 = new Date();
   document.getElementById("Ttime").innerHTML = (now1 - now) / 1000;
+
+  document.querySelector('.time-info').style.display = 'block';
   sortingInProgress = false;
   document.getElementById("chatButton").innerText = "Send";
   // document.querySelector(".footer > p:nth-child(2)").style.visibility = "visible";
