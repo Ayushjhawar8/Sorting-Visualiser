@@ -56,10 +56,10 @@ This project has been a part of:
 ## 📸 Screenshots
 
 ### 🏠 Home Page
-![Home Page](./public/img1.png)
+![Home Page](./public/Image1.png)
 
 ### 🔄 Sorting Visualization
-![Sorting Visualization](./public/img2.png)
+![Sorting Visualization](./public/Image2.png)
 
 ---
 
