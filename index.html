@@ -136,6 +136,8 @@
           Refresh <i class="fa fa-refresh"></i>
         </button>
 
+        <a class="about-btn" onclick="toggleAboutPopup()">About</a>
+
       </div>
     </div>
     <div class="center">
@@ -169,6 +171,36 @@
     </footer>
 
     <canvas id="particleCanvas"></canvas>
+
+    <!-- About Popup.........................................-->
+<div id="overlay" class="overlay hidden"></div>
+
+<div id="aboutPopup" class="about-popup hidden">
+  <div class="about-content">
+    <h2>About This App</h2>
+    <p>
+      <p>
+        This Sorting Visualizer offers an intuitive way to understand how various sorting algorithms work, including Bubble Sort,
+         Merge Sort, Quick Sort, and more. You can customize the array size, sorting speed, and algorithm to suit your learning pace. 
+         Additionally, the visualizer provides real-time information on the time complexity of the selected algorithm
+          and the total time taken to complete the sort.
+      </p>
+      
+    </p>
+    <button class="close-about" onclick="toggleAboutPopup()">Close</button>
+  </div>
+</div>
+
+<script>
+function toggleAboutPopup() {
+  const popup = document.getElementById("aboutPopup");
+  const overlay = document.getElementById("overlay");
+
+  popup.classList.toggle("hidden");
+  overlay.classList.toggle("hidden");
+}
+</script>
+
 
 
     <script src="./scripts/app.js"></script>
