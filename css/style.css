@@ -412,26 +412,29 @@ width: calc(100% - 60px);
   display: inline-flex !important;
   align-items: center;
   justify-content: center;
-  width: 40px !important;
-  height: 40px !important;
+  width: 50px !important; /* Increased size for better visibility */
+  height: 50px !important; /* Increased size for better visibility */
   padding: 8px !important;
-  font-size: 16px !important;
-  transition: transform 0.3s ease;
-  background-color: #1abc9c !important;
+  font-size: 20px !important; /* Larger icon for better visibility */
+  transition: transform 0.3s ease, background-color 0.3s ease; /* Smooth transition */
+  background: linear-gradient(135deg, #29e8c1, #16a085) !important; /* Gradient background */
   border-radius: 50% !important;
   position: absolute;
   right: 20px;
   top: 10px;
   z-index: 100;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); 
+  border: 2px solid #fff; 
 }
 
 .theme-btn:hover {
-  transform: rotate(20deg);
-  background-color: #16a085 !important;
+  transform: scale(1.1); 
+  background-color: #025242 !important; 
 }
 
 .dark-mode .theme-btn i {
-  content: "\f185"; /* fa-sun-o */
+  content: "\f185"; 
+  color: #fff;
 }
 
 /* Customize button style */
