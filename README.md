@@ -58,9 +58,14 @@ This project has been a part of:
 ### 🏠 Home Page
 ![Home Page](./public/Image1.png)
 
+### About Page
+![About Page](./public/Image3.png)
+
 ### 🔄 Sorting Visualization
 ![Sorting Visualization](./public/Image2.png)
 
+### ChatBot
+![Chat-Bot](./public/Image4.png)
 ---
 
 ## 💡 How to Use
