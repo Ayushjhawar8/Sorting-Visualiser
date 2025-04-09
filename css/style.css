@@ -584,3 +584,101 @@ body {
 .hidden {
   display: none;
 }
+
+
+
+
+
+
+
+/* Theme Switch Styling.................................*/
+.theme-switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 30px;
+  margin-left: 10px;
+}
+
+.theme-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  border-radius: 30px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #f1c40f;
+  transition: background-color 0.4s ease;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px;
+  font-size: 16px;
+  color: #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.sun-icon {
+  color: #fff700;
+}
+
+.moon-icon {
+  color: #dfe6e9;
+}
+
+
+.theme-switch input:checked + .slider {
+  background-color: #34495e; 
+}
+
+.theme-switch input:checked + .slider::before {
+  transform: translateX(30px);
+}
+
+.sun-icon {
+  text-shadow: 0 0 8px #fff700;
+}
+
+.theme-switch input:checked + .slider .moon-icon {
+  text-shadow: 0 0 10px #95a5a6;
+}
+
+
+.slider::before {
+  content: "";
+  position: absolute;
+  height: 24px;
+  width: 24px;
+  left: 3px;
+  bottom: 3px;
+  background: radial-gradient(circle at 30% 30%, #ffe100, #ff9900); /* Brighter sun */
+  border-radius: 50%;
+  transition: transform 0.4s ease, background 0.4s ease, box-shadow 0.4s ease;
+  box-shadow: 0 0 10px #f39c12, 0 0 5px #ffae42;
+  border: 2px solid #e67e22; /* Makes it stand out */
+}
+
+
+.theme-switch input:checked + .slider::before {
+  background: radial-gradient(circle at 30% 30%, #dfe6e9, #2c3e50); /* Moon feel */
+  transform: translateX(30px);
+  box-shadow: 0 0 10px #95a5a6;
+}
+
+.theme-switch{
+  position: relative;
+  left: 80px ;
+  
+}
+
+
+
+
+
