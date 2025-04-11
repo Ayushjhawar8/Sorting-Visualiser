@@ -209,6 +209,9 @@ body {
   a.start {
     order: 5;
   }
+  .theme-switch{
+    margin-left: 0px !important;
+  }
 }
 
 /* Chat Popup Toggle Button */
@@ -457,10 +460,9 @@ width: calc(100% - 60px);
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  width: 100px;
+  width: 60px;
   height: 40px;
   display: block; /* Make the button a block element */
-  width: 200px;   /* Set a fixed width for the button */
   margin: 0 auto; 
   border: 2px solid #2b5659; /* Added border around the circle */
 }
@@ -674,8 +676,8 @@ body {
 
 .theme-switch{
   position: relative;
-  left: 80px ;
-  
+  margin-left:80px;
+
 }
 
 
