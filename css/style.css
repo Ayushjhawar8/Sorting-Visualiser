@@ -552,8 +552,8 @@ body {
 input[type="text"], select {
   border: 2px solid #1abc9c; 
   border-radius: 8px; 
-  padding: 10px; 
-  font-size: 16px; 
+  padding: 8px; 
+  font-size: 15px; 
   transition: border-color 0.3s ease, box-shadow 0.3s ease; 
 }
 
@@ -579,7 +579,7 @@ select:hover {
   color: white;
   border: none; 
   border-radius: 8px; 
-  padding: 10px 15px;
+  padding: 7px 9px;
   cursor: pointer; 
   transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
 }
@@ -590,6 +590,39 @@ select:hover {
 }
 
 
+.algo-menu,
+.size-menu,
+.input,
+.speed-menu,
+.order-menu {
+    width: 100px; /* Set a fixed width */
+}
+
+.algo-menu,
+.size-menu,
+.input,
+.speed-menu,
+.order-menu,
+.start,
+.refresh-button,
+.about-btn {
+    font-size: 14px; /* Adjust the font size */
+    padding: 3px 7px; /* Adjust padding for smaller buttons */
+    margin: 2px; /* Add some margin for spacing */
+    height: 26px; /* Set a fixed height for buttons */
+    margin: 2px; /* Add some margin for spacing */
+  background-color: #1abc9c !important;
+  transition: background 0.3s ease;
+  background-color: linear-gradient(#0f8b7d,#2980b9);
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid #00ffc8;
+  border-radius: 10px;
+  box-shadow: 0 0 15px #00ffc8aa;
+  animation: fadeInScale 0.8s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  text-align: center;
+  backdrop-filter: blur(6px);
+}
 
 
 /*refresh button styling........... */
