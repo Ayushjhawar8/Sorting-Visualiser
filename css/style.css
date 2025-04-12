@@ -83,6 +83,11 @@ body {
   padding: 6px 8px;
   background-color: #1abc9c;
   color: white;
+  /*background-color: #3498db; */
+  background-color: linear-gradient(#0f8b7d,#2980b9);
+  cursor: pointer; 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+  transition: background-color 0.3s ease;
 }
 .navbar > .icon {
   display: none;
@@ -454,7 +459,7 @@ width: calc(100% - 60px);
   color: white;
 }
 
-.options
+/*.options
 {
     background-color: #1abc9c; 
     color: white;
@@ -463,7 +468,7 @@ width: calc(100% - 60px);
     padding: 4px 7px;
     cursor: pointer; 
     transition: background-color 0.3s ease, transform 0.3s ease; 
-}
+}*/
 
 .dark-mode .options select {
   background-color: #333;
@@ -549,7 +554,7 @@ body {
   z-index: -1;
 }
 
-input[type="text"], select {
+/*input[type="text"], select {
   border: 2px solid #1abc9c; 
   border-radius: 8px; 
   padding: 8px; 
@@ -574,7 +579,7 @@ select:hover {
   background-color: #f0f0f0; 
 }
 
-.algorithm-button {
+/*.algorithm-button {
   background-color: #1abc9c; 
   color: white;
   border: none; 
@@ -584,28 +589,13 @@ select:hover {
   transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
 }
 
-.algorithm-button:hover {
+/*.algorithm-button:hover {
   background-color: #16a085; 
-  transform: scale(1.05); 
+  transform: scale(1.05);
 }
+*/
 
-
-.algo-menu,
-.size-menu,
-.input,
-.speed-menu,
-.order-menu {
-    width: 100px; /* Set a fixed width */
-}
-
-.algo-menu,
-.size-menu,
-.input,
-.speed-menu,
-.order-menu,
-.start,
-.refresh-button,
-.about-btn {
+.refresh-button{
     font-size: 14px; /* Adjust the font size */
     padding: 3px 7px; /* Adjust padding for smaller buttons */
     margin: 2px; /* Add some margin for spacing */
