@@ -3,13 +3,21 @@ class sortAlgorithms {
         this.list = document.querySelectorAll(".cell");
         this.size = this.list.length;
         this.time = time;
-        this.help = new Helper(this.time, this.list);
+        this.descending = document.querySelector(".order-menu").value === "desc";
+        this.help = new Helper(this.time, this.list, this.descending);
         this.stopped = false; // Flag to control stopping
+        this.swapSound = new Audio('sound.wav'); // Add a sound file for swaps
     }
 
     // Method to stop the sorting
     stop() {
         this.stopped = true;
+    }
+
+    // Method to play the swap sound
+    playSwapSound() {
+        this.swapSound.currentTime = 0; // Reset sound to start
+        this.swapSound.play();
     }
 
     // BUBBLE SORT
@@ -23,6 +31,7 @@ class sortAlgorithms {
                 await this.help.mark(j + 1);
                 if (await this.help.compare(j, j + 1)) {
                     await this.help.swap(j, j + 1);
+                    this.playSwapSound(); // Play sound on swap
                 }
                 await this.help.unmark(j);
                 await this.help.unmark(j + 1);
@@ -46,6 +55,7 @@ class sortAlgorithms {
                 await this.help.mark(j + 1);
                 await this.help.pause();
                 await this.help.swap(j, j + 1);
+                this.playSwapSound(); // Play sound on swap
                 await this.help.unmark(j);
                 await this.help.unmark(j + 1);
                 j -= 1;
@@ -81,6 +91,7 @@ class sortAlgorithms {
             await this.help.mark(i);
             await this.help.pause();
             await this.help.swap(minIndex, i);
+            this.playSwapSound(); // Play sound on swap
             await this.help.unmark(minIndex);
             this.list[i].setAttribute("class", "cell done");
         }
@@ -120,7 +131,7 @@ class sortAlgorithms {
         while (frontcounter <= mid && midcounter <= end) {
             let fvalue = Number(this.list[frontcounter].getAttribute("value"));
             let svalue = Number(this.list[midcounter].getAttribute("value"));
-            if (fvalue >= svalue) {
+            if (this.descending ? (fvalue <= svalue) : (fvalue >= svalue)) {
                 newList.push(svalue);
                 ++midcounter;
             }
@@ -145,7 +156,18 @@ class sortAlgorithms {
             ++c, ++point) {
             await this.help.pause();
             this.list[c].setAttribute("value", newList[point]);
+
             this.list[c].style.height = `${3.5 * newList[point]}px`;
+            this.playSwapSound(); // Play sound on value update
+
+            const baseHeight = 15;  // Minimum height for visibility
+            const scalingFactor = 3.8;  // Scaling for larger values
+            this.list[c].style.height = `${baseHeight + scalingFactor * newList[point]}px`;
+
+            let span = this.list[c].querySelector(".cell-value");
+            if (span) {
+                span.innerText = newList[point];
+            }
         }
         for (let c = start; c <= end; ++c) {
             this.list[c].setAttribute("class", "cell");
@@ -184,15 +206,17 @@ class sortAlgorithms {
             if (this.stopped) return;
             let currValue = Number(this.list[c].getAttribute("value"));
             await this.help.mark(c);
-            if (currValue < pivot) {
+            if (this.descending ? (currValue > pivot) : (currValue < pivot)) {
                 prev_index += 1;
                 await this.help.mark(prev_index);
                 await this.help.swap(c, prev_index);
+                this.playSwapSound(); // Play sound on swap
                 await this.help.unmark(prev_index);
             }
             await this.help.unmark(c);
         }
         await this.help.swap(prev_index + 1, end);
+        this.playSwapSound(); // Play sound on swap
         await this.help.unmark(end);
         return prev_index + 1;
     }

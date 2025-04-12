@@ -1,6 +1,8 @@
 :root {
   --primary-color: #1abc9c;
   --secondary-color: #16a085;
+  --button-hover-color: #148f77; /* New color for button hover */
+  --title-color: #0e6655; /* New color for title */
 }
 * {
   /* Below is the standard CSS code one should add to get rid of default margins and padding which most of tge HTML elements have */
@@ -22,7 +24,7 @@ body {
 
 /* Title CSS */
 .title {
-  background-color: var(--primary-color);
+  background-color: var(--title-color); /* Updated title color */
   text-align: center;
   font-size: 1.2em;
   padding-block: 0.5em;
@@ -51,10 +53,10 @@ body {
   padding: 8px 10px;
   border-radius: 6px;
   transition: 0.3s;
-  background-color: #1abc9c;
+  background-color: var(--primary-color);
 }
 .navbar a:hover {
-  background-color: transparent;
+  background-color: var(--button-hover-color); /* Updated button hover color */
 }
 .navbar #menu {
   width: fit-content;
@@ -94,12 +96,14 @@ body {
 .cell {
   display: flex;
   align-items: flex-end;
+  justify-content: center;
   flex: 0.5;
   width: 0.000001%;
   margin: 1px;
   background-color: #bbb5b5;
-  resize: horizontal;
+
   position: relative;
+  
   transition: all 0.4s ease-in;
 }
 .cell.done {
@@ -126,27 +130,55 @@ body {
   color: white;
   transition: all 0.4s ease-out;
 }
-
-/* Footer CSS */
-.fa.fa-heart {
-  color: #eb2c13;
-}
-footer {
-  text-align: center;
-  font-size: 18px;
-  color: #2c3e50;
-  padding: 1.6em;
-  visibility: hidden;
-}
-.footer > p:nth-child(1) {
-  margin-bottom: 0.6em;
-  visibility: hidden;
-}
-#time ,
-#Ttime
-{
+.cell-value {
+  position: absolute;
+  bottom: 2px; 
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  color: black;
   font-weight: bold;
+  pointer-events: none; 
+  user-select: none; 
+
 }
+
+/* Footer CSS.................... */
+.time-info {
+  display: none;
+  font-family: 'Roboto', sans-serif;
+  color: #00ffc8;
+  font-size: 1.1rem;
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid #00ffc8;
+  padding: 10px 20px;
+  margin: 20px auto;
+  border-radius: 10px;
+  width: fit-content;
+  box-shadow: 0 0 15px #00ffc8aa;
+  animation: fadeInScale 0.8s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  text-align: center;
+  backdrop-filter: blur(6px);
+}
+
+@keyframes fadeInScale {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.time-info span {
+  font-weight: bold;
+  color: #fffb00;
+  text-shadow: 0 0 5px #fff200;
+}
+
 /* .footer > p:nth-child(2) {
   margin-bottom: 0.6em;
 } */
@@ -177,6 +209,9 @@ footer {
   a.start {
     order: 5;
   }
+  .theme-switch{
+    margin-left: 0px !important;
+  }
 }
 
 /* Chat Popup Toggle Button */
@@ -194,7 +229,7 @@ footer {
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease;
-}
+  }
 
 .chat-toggle-button:hover {
   transform: scale(1.1);
@@ -203,10 +238,9 @@ footer {
 /* Chat Container Styling */
 .chat-container {
   position: fixed;
-  bottom: 80px;
+  bottom: 70px;
   right: 20px;
   width: 300px;
-  background-color: #f0f0f0;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: none;
@@ -215,6 +249,11 @@ footer {
   opacity: 0;               /* Initial hidden state */
   transform: translateY(20px); /* Slide from 20px below */
   transition: transform 0.3s ease, opacity 0.3s ease;
+  background-color: #fff; 
+  max-height: 400px; 
+  overflow-y: auto; 
+  z-index: 1000; 
+  transition: all 0.3s ease;
 }
 
 .chat-container.show {
@@ -234,7 +273,7 @@ footer {
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  background-color: #3b82f6;
+  background-color: #3498db;
   color: white;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
@@ -257,8 +296,16 @@ footer {
 .chat-body {
   display: flex;
   padding: 10px;
+    max-height: 300px; 
+    overflow-y: auto;
 }
-
+.chat-body input{
+width: calc(100% - 60px); 
+    padding: 10px;
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    margin-right: 10px;
+}
 #chatInput {
   flex: 1;
   padding: 8px;
@@ -270,17 +317,37 @@ footer {
 }
 
 #chatButton {
-  background-color: #3b82f6;
   color: #fff;
   border: none;
   border-radius: 5px;
-  padding: 8px 12px;
+  padding: 10px 15px;
   font-size: 14px;
   cursor: pointer;
+    background-color: #3498db; 
+    
+    transition: background-color 0.3s ease; 
 }
 
 #chatButton:hover {
-  background-color: #2563eb;
+  background-color: #2980b9;
+  background-color: linear-gradient(#0f8b7d,#2980b9);
+}
+.chat-toggle-button {
+  background-color: #3498db; 
+  background-color: linear-gradient(#0f8b7d,#2980b9);
+  color: #fff; 
+  border: none; 
+  border-radius: 50%; 
+  width: 50px; 
+  position: fixed;
+  bottom: 20px; 
+  right: 20px; 
+  cursor: pointer; 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+  transition: background-color 0.3s ease;
+}
+.chat-toggle-button:hover {
+  background-color: #2980b9; /* Darker shade on hover */
 }
 
 /* Light Mode (Default) */
@@ -318,6 +385,30 @@ footer {
 
 .dark-mode .cell {
   background-color: #6c6c6c;
+}
+
+.dark-mode .cell.done {
+  background-color: #9cec5b;
+  border-color: #9cec5b;
+  color: white;
+}
+
+.dark-mode .cell.visited {
+  border-color: #6184d8;
+  background-color: #6184d8;
+  color: white;
+}
+
+.dark-mode .cell.current {
+  border-color: #50c5b7;
+  background-color: #50c5b7;
+  color: white;
+}
+
+.dark-mode .cell.min {
+  background-color: #ff1493;
+  border-color: #ff1493;
+  color: white;
 }
 
 .dark-mode .options select {
@@ -369,11 +460,11 @@ footer {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  width: 100px;
+  width: 60px;
   height: 40px;
   display: block; /* Make the button a block element */
-  width: 200px;   /* Set a fixed width for the button */
-  margin: 0 auto; /
+  margin: 0 auto; 
+  border: 2px solid #2b5659; /* Added border around the circle */
 }
 
 #theme-toggle:hover {
@@ -384,3 +475,212 @@ footer {
   background-color: #333;
   color: white;
 }
+
+
+
+
+
+body {
+  margin: 0;
+  overflow: hidden; 
+}
+
+#particleCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: -1;
+}
+
+
+/*refresh button styling........... */
+
+#refresh-btn {
+  all: unset;
+  cursor: pointer;
+  color: #fff;
+  font-weight: bold;
+  padding: 7px 9px;
+  border-radius: 6px;
+  transition: 0.3s;
+  background-color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  gap: 5px; 
+}
+
+#refresh-btn:hover {
+  background-color: var(--button-hover-color);
+}
+
+#refresh-btn i {
+  font-size: 16px;
+}
+
+
+
+
+
+
+
+
+
+/* Popup card styling................. */
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(6px);
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 99;
+}
+
+
+.about-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #1abc9c;
+  z-index: 100;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+  max-width: 500px;
+  width: 90%;
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+}
+
+.about-popup h2 {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.about-popup p {
+  font-size: 1rem;
+  color: #333;
+}
+
+.close-about {
+  margin-top: 1.5rem;
+  padding: 0.5rem 1rem;
+  background-color: #444;
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.close-about:hover {
+  background-color: #222;
+}
+
+.hidden {
+  display: none;
+}
+
+
+
+
+
+
+
+/* Theme Switch Styling.................................*/
+.theme-switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 30px;
+  margin-left: 10px;
+}
+
+.theme-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  border-radius: 30px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #f1c40f;
+  transition: background-color 0.4s ease;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px;
+  font-size: 16px;
+  color: #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.sun-icon {
+  color: #fff700;
+}
+
+.moon-icon {
+  color: #dfe6e9;
+}
+
+
+.theme-switch input:checked + .slider {
+  background-color: #34495e; 
+}
+
+.theme-switch input:checked + .slider::before {
+  transform: translateX(30px);
+}
+
+.sun-icon {
+  text-shadow: 0 0 8px #fff700;
+}
+
+.theme-switch input:checked + .slider .moon-icon {
+  text-shadow: 0 0 10px #95a5a6;
+}
+
+
+.slider::before {
+  content: "";
+  position: absolute;
+  height: 24px;
+  width: 24px;
+  left: 3px;
+  bottom: 3px;
+  background: radial-gradient(circle at 30% 30%, #ffe100, #ff9900); /* Brighter sun */
+  border-radius: 50%;
+  transition: transform 0.4s ease, background 0.4s ease, box-shadow 0.4s ease;
+  box-shadow: 0 0 10px #f39c12, 0 0 5px #ffae42;
+  border: 2px solid #e67e22; /* Makes it stand out */
+}
+
+
+.theme-switch input:checked + .slider::before {
+  background: radial-gradient(circle at 30% 30%, #dfe6e9, #2c3e50); /* Moon feel */
+  transform: translateX(30px);
+  box-shadow: 0 0 10px #95a5a6;
+}
+
+.theme-switch{
+  position: relative;
+  margin-left:80px;
+
+}
+
+
+
+
+
