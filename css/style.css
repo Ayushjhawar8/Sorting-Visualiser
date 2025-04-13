@@ -14,7 +14,7 @@
 }
 body {
   position: relative;
-  min-height: 100vh;
+  height: 100vh;
   text-align: center;
   display: flex;
   justify-content: space-between;
@@ -820,7 +820,11 @@ input[type="range"]::-webkit-slider-thumb:hover {
 
 }
 
-
-
-
-
+@media screen and (max-width: 340px) {
+  .array{
+    min-height: 0vh;
+    height: 65vh !important;
+    overflow: hidden;
+    z-index: 1000;
+  }
+}
