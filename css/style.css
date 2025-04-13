@@ -45,6 +45,7 @@ body {
   background-color: var(--secondary-color);
   transition: all 0.5s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
+
 .navbar a {
   all: unset;
   cursor: pointer;
@@ -54,10 +55,26 @@ body {
   border-radius: 6px;
   transition: 0.3s;
   background-color: var(--primary-color);
+    background: linear-gradient(45deg, #1abc9c, #16a085);
+    transition: background 0.3s ease;
 }
 .navbar a:hover {
-  background-color: var(--button-hover-color); /* Updated button hover color */
+  background-color: var(--button-hover-color);
+    transform: scale(1.05); 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.3s ease; 
 }
+
+.navbar a:active {
+  transform: scale(0.95); 
+  background-color: #148f77; 
+}
+
+.navbar a:focus {
+  outline: none; 
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); 
+}
+
 .navbar #menu {
   width: fit-content;
   outline: none;
@@ -66,6 +83,11 @@ body {
   padding: 6px 8px;
   background-color: #1abc9c;
   color: white;
+  /*background-color: #3498db; */
+  background-color: linear-gradient(#0f8b7d,#2980b9);
+  cursor: pointer; 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+  transition: background-color 0.3s ease;
 }
 .navbar > .icon {
   display: none;
@@ -74,6 +96,23 @@ body {
 #random,
 #start {
   cursor: pointer;
+}
+
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.navbar a:hover {
+  animation: pulse 0.6s infinite;
 }
 
 /* Center css */
@@ -350,6 +389,15 @@ width: calc(100% - 60px);
   background-color: #2980b9; /* Darker shade on hover */
 }
 
+.container {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin: 20px 0;
+}
+
+
 /* Light Mode (Default) */
 #body {
   background-color: white;
@@ -410,6 +458,17 @@ width: calc(100% - 60px);
   border-color: #ff1493;
   color: white;
 }
+
+/*.options
+{
+    background-color: #1abc9c; 
+    color: white;
+    border: none; 
+    border-radius: 6px; 
+    padding: 4px 7px;
+    cursor: pointer; 
+    transition: background-color 0.3s ease, transform 0.3s ease; 
+}*/
 
 .dark-mode .options select {
   background-color: #333;
@@ -493,6 +552,66 @@ body {
   height: 100vh;
   pointer-events: none;
   z-index: -1;
+}
+
+/*input[type="text"], select {
+  border: 2px solid #1abc9c; 
+  border-radius: 8px; 
+  padding: 8px; 
+  font-size: 15px; 
+  transition: border-color 0.3s ease, box-shadow 0.3s ease; 
+}
+
+input[type="text"]:focus, select:focus {
+  border-color: #16a085;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); 
+  outline: none; 
+}
+
+select {
+  background-color: #fff; 
+  color: #333; 
+  cursor: pointer;
+  transition: background-color 0.3s ease; 
+}
+
+select:hover {
+  background-color: #f0f0f0; 
+}
+
+/*.algorithm-button {
+  background-color: #1abc9c; 
+  color: white;
+  border: none; 
+  border-radius: 8px; 
+  padding: 7px 9px;
+  cursor: pointer; 
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
+}
+
+/*.algorithm-button:hover {
+  background-color: #16a085; 
+  transform: scale(1.05);
+}
+*/
+
+.refresh-button{
+    font-size: 14px; /* Adjust the font size */
+    padding: 3px 7px; /* Adjust padding for smaller buttons */
+    margin: 2px; /* Add some margin for spacing */
+    height: 26px; /* Set a fixed height for buttons */
+    margin: 2px; /* Add some margin for spacing */
+  background-color: #1abc9c !important;
+  transition: background 0.3s ease;
+  background-color: linear-gradient(#0f8b7d,#2980b9);
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid #00ffc8;
+  border-radius: 10px;
+  box-shadow: 0 0 15px #00ffc8aa;
+  animation: fadeInScale 0.8s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  text-align: center;
+  backdrop-filter: blur(6px);
 }
 
 
@@ -589,8 +708,29 @@ body {
 
 
 
+input[type="range"] {
+  -webkit-appearance: none; /* Remove default styling */
+  width: 100%; /* Full width */
+  height: 8px; /* Track height */
+  background: #ddd; /* Track color */
+  border-radius: 5px; /* Rounded track */
+  outline: none; /* Remove outline */
+}
 
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; 
+  appearance: none; 
+  width: 20px; 
+  height: 20px; 
+  background: #1abc9c; 
+  border-radius: 50%; 
+  cursor: pointer; 
+  transition: background 0.3s ease; 
+}
 
+input[type="range"]::-webkit-slider-thumb:hover {
+  background: #16a085; 
+}
 
 
 /* Theme Switch Styling.................................*/
